@@ -14,20 +14,21 @@
 
 const PROTOCOLO = {
   titulo: "Meu Treino",
-  subtitulo: "Corpo inteiro · dinâmico · ~50 min",
-  rotacao: ["A", "B", "C"],
+  subtitulo: "Inferiores e superiores em dias separados · ~50 min",
+  rotacao: ["A", "S", "B"],
   notas: [
-    "Foi à academia? Faça o próximo treino da sequência A → B → C → A… Não importa o dia da semana.",
-    "Dia corrido (30 min)? Faça o Express. Ele não conta na sequência.",
-    "Progressão: quando fizer todas as repetições de todas as rodadas com folga, suba a carga na próxima vez.",
-    "Bi-set: faça os dois exercícios seguidos e só descanse ao terminar o par.",
-    "Circuito: aperte ▶ Iniciar e siga o cronômetro — ele avisa quando trocar."
+    "Foi à academia? Faça o próximo treino da sequência: Inferiores A → Superiores → Inferiores B → … Não importa o dia da semana.",
+    "Um aparelho por vez: faça todas as séries de um exercício, descanse, e só depois vá para o próximo.",
+    "Dia difícil ou corrido? Marque a caixa no topo: fica só aquecimento + os exercícios principais (~25 min). Também conta.",
+    "Progressão: quando fizer todas as repetições de todas as séries com folga, suba a carga na próxima vez.",
+    "Circuito: tudo no mesmo lugar, só com o corpo ou halteres leves. Aperte ▶ Iniciar e siga o cronômetro."
   ],
   // Diário de sintomas (aba "Hoje")
   diario: {
     remedio: "Espironolactona 50 mg"
   },
-  // Fase de adaptação: menos rodadas e cardio contínuo moderado no lugar dos tiros.
+  // Fase de adaptação: circuito com menos rodadas e cardio contínuo moderado no lugar dos tiros.
+  // Os exercícios principais continuam com todas as séries.
   adaptacao: {
     rodadas: 2,
     finalizador: { label: "Ritmo moderado contínuo", seg: 480,
@@ -40,10 +41,10 @@ const PROTOCOLO = {
     "Calorão durante o treino: diminua o ritmo, respire e retome só quando passar."
   ],
   dias: [
-    // ------------------------------------------------------------ A
+    // ------------------------------------------------------------ Inferiores A
     {
       id: "A",
-      nome: "Glúteo + Costas",
+      nome: "Inferiores · Glúteo",
       tempo: "~50 min",
       exercicios: [
         {
@@ -53,39 +54,29 @@ const PROTOCOLO = {
           texto: "Mobilidade: 8 gato-camelo, 15 pontes de glúteo no chão, 10 agachamentos sem peso."
         },
         {
-          biset: true, nome: "Força 1", descanso: 45,
-          tecnica: "Rodada 1 um pouco mais leve, para aquecer.",
-          itens: [
-            { nome: "Agachamento Goblet", musculo: "Pernas / Glúteos", series: ["12", "12", "12"] },
-            { nome: "Remada Sentada no Triângulo", musculo: "Costas", series: ["12", "12", "12"], carga: 20 }
+          nome: "Elevação Pélvica", musculo: "Glúteo máximo",
+          series: ["12", "12", "12"], descanso: 60,
+          carga: 25, cargaNota: "Sugestão: carga reduzida para acertar a técnica", alerta: true,
+          obs: [
+            "Banco logo abaixo das escápulas — o tronco gira na borda como dobradiça.",
+            "No topo, canela na vertical (joelho em cima do tornozelo).",
+            "Olhar para os joelhos, queixo levemente para dentro. Nunca olhar para o teto.",
+            "Costela fechada e quadril \"encaixado\" (esconder o bumbum) no topo.",
+            "Parar quando joelho, quadril e ombro formarem uma linha reta.",
+            "Segurar 1–2 s apertando o glúteo e descer com controle.",
+            "Sentiu a lombar? Diminua a subida. Se continuar doendo: troque por Ponte de Glúteo no chão ou elevação pélvica no aparelho."
           ]
         },
+        { nome: "Agachamento Goblet", musculo: "Pernas / Glúteos", series: ["12", "12", "12"], descanso: 60 },
+        { nome: "Stiff com Halteres", musculo: "Posterior de coxa / Glúteos", series: ["12", "12", "12"], descanso: 60 },
+        { nome: "Cadeira Abdutora 45°", musculo: "Glúteo médio", series: ["15 a 20", "15 a 20", "15 a 20"], descanso: 45, carga: 35 },
         {
-          biset: true, nome: "Força 2", descanso: 45,
+          circuito: true, nome: "Circuito no colchonete", rodadas: 3, trabalho: 40, pausa: 20, descanso: 60,
           itens: [
-            {
-              nome: "Elevação Pélvica", musculo: "Glúteo máximo", series: ["12", "12", "12"],
-              carga: 25, cargaNota: "Sugestão: carga reduzida para acertar a técnica", alerta: true,
-              obs: [
-                "Banco logo abaixo das escápulas — o tronco gira na borda como dobradiça.",
-                "No topo, canela na vertical (joelho em cima do tornozelo).",
-                "Olhar para os joelhos, queixo levemente para dentro. Nunca olhar para o teto.",
-                "Costela fechada e quadril \"encaixado\" (esconder o bumbum) no topo.",
-                "Parar quando joelho, quadril e ombro formarem uma linha reta.",
-                "Segurar 1–2 s apertando o glúteo e descer com controle.",
-                "Sentiu a lombar? Diminua a subida. Se continuar doendo: troque por Ponte de Glúteo no chão ou elevação pélvica no aparelho."
-              ]
-            },
-            { nome: "Pull Down com Corda", musculo: "Dorsal", series: ["15", "15", "15"], carga: 15 }
-          ]
-        },
-        {
-          circuito: true, nome: "Circuito de suor", rodadas: 3, trabalho: 40, pausa: 20, descanso: 60,
-          itens: [
-            { nome: "Step-up no Banco", musculo: "Pernas / Glúteos (alternando)" },
+            { nome: "Ponte de Glúteo no Chão", musculo: "Glúteos" },
+            { nome: "Agachamento Livre no Ritmo", musculo: "Pernas" },
             { nome: "Polichinelo", musculo: "Cardio" },
-            { nome: "Dead Bug", musculo: "Core" },
-            { nome: "Escalador", musculo: "Cardio / Core" }
+            { nome: "Dead Bug", musculo: "Core" }
           ]
         },
         {
@@ -96,39 +87,29 @@ const PROTOCOLO = {
         }
       ]
     },
-    // ------------------------------------------------------------ B
+    // ------------------------------------------------------------ Superiores
     {
-      id: "B",
-      nome: "Pernas + Empurrar",
+      id: "S",
+      nome: "Superiores",
       tempo: "~50 min",
       exercicios: [
         {
           intervalo: true, tipo: "Aquecimento", nome: "Aquecimento",
           fases: [{ label: "Esteira ou bike leve", seg: 180 }, { label: "Mobilidade", seg: 120 }],
           repetir: 1,
-          texto: "Mobilidade: 10 rotações de ombro com braço esticado, 10 agachamentos sem peso, 8 afundos sem peso."
+          texto: "Mobilidade: 10 rotações de ombro com braço esticado para frente e para trás, 10 \"abraços\" abrindo e fechando os braços, 8 gato-camelo."
         },
+        { nome: "Remada Sentada no Triângulo", musculo: "Costas", series: ["12", "12", "12"], descanso: 60, carga: 20 },
+        { nome: "Pull Down com Corda", musculo: "Dorsal", series: ["15", "15", "15"], descanso: 60, carga: 15 },
+        { nome: "Supino Reto com Halter", musculo: "Peitoral", series: ["12", "12", "12"], descanso: 60, carga: 5 },
+        { nome: "Desenvolvimento com Halteres no Banco 90°", musculo: "Ombros", series: ["12", "12", "12"], descanso: 60, carga: 7 },
         {
-          biset: true, nome: "Força 1", descanso: 45,
-          tecnica: "Rodada 1 um pouco mais leve, para aquecer.",
+          circuito: true, nome: "Circuito com halteres leves", rodadas: 3, trabalho: 40, pausa: 20, descanso: 60,
+          texto: "Pegue um par de halteres leves e fique perto de um banco — tudo no mesmo lugar.",
           itens: [
-            { nome: "Leg Press 45°", musculo: "Quadríceps / Glúteos", series: ["12", "12", "12"], carga: 40 },
-            { nome: "Supino Reto com Halter", musculo: "Peitoral", series: ["12", "12", "12"], carga: 5 }
-          ]
-        },
-        {
-          biset: true, nome: "Força 2", descanso: 45,
-          itens: [
-            { nome: "Afundo Reverso com Halteres", musculo: "Pernas / Glúteos", series: ["10 cada perna", "10 cada perna", "10 cada perna"] },
-            { nome: "Desenvolvimento com Halteres no Banco 90°", musculo: "Ombros", series: ["12", "12", "12"], carga: 7 }
-          ]
-        },
-        {
-          circuito: true, nome: "Circuito de suor", rodadas: 3, trabalho: 40, pausa: 20, descanso: 60,
-          itens: [
-            { nome: "Agachamento Livre no Ritmo", musculo: "Pernas" },
-            { nome: "Flexão de Braço Inclinada no Banco", musculo: "Peito / Tríceps" },
-            { nome: "Corrida Parada", musculo: "Cardio" },
+            { nome: "Elevação Lateral", musculo: "Ombros" },
+            { nome: "Rosca Bíceps com Halteres", musculo: "Bíceps" },
+            { nome: "Tríceps no Banco", musculo: "Tríceps" },
             { nome: "Prancha com Toque no Ombro", musculo: "Core / Ombros" }
           ]
         },
@@ -140,40 +121,29 @@ const PROTOCOLO = {
         }
       ]
     },
-    // ------------------------------------------------------------ C
+    // ------------------------------------------------------------ Inferiores B
     {
-      id: "C",
-      nome: "Posterior + Braços",
+      id: "B",
+      nome: "Inferiores · Coxas",
       tempo: "~50 min",
       exercicios: [
         {
           intervalo: true, tipo: "Aquecimento", nome: "Aquecimento",
           fases: [{ label: "Esteira ou bike leve", seg: 180 }, { label: "Mobilidade", seg: 120 }],
           repetir: 1,
-          texto: "Mobilidade: 8 gato-camelo, 10 \"bom dia\" sem peso (mão no quadril, empurrando o quadril para trás), 15 pontes de glúteo."
+          texto: "Mobilidade: 10 agachamentos sem peso, 8 afundos para trás sem peso, 15 pontes de glúteo."
         },
+        { nome: "Leg Press 45°", musculo: "Quadríceps / Glúteos", series: ["12", "12", "12"], descanso: 60, carga: 40 },
+        { nome: "Afundo Reverso com Halteres", musculo: "Pernas / Glúteos", series: ["10 cada perna", "10 cada perna", "10 cada perna"], descanso: 60 },
+        { nome: "Cadeira Extensora", musculo: "Quadríceps", series: ["15", "12", "12"], descanso: 45, carga: 35 },
+        { nome: "Mesa Flexora", musculo: "Posterior de coxa", series: ["12", "12", "12"], descanso: 45, carga: 30 },
         {
-          biset: true, nome: "Força 1", descanso: 45,
-          tecnica: "Rodada 1 um pouco mais leve, para aquecer.",
+          circuito: true, nome: "Circuito perto de um banco", rodadas: 3, trabalho: 40, pausa: 20, descanso: 60,
           itens: [
-            { nome: "Stiff com Halteres", musculo: "Posterior de coxa / Glúteos", series: ["12", "12", "12"] },
-            { nome: "Remada Serrote", musculo: "Costas", series: ["12 cada braço", "12 cada braço", "12 cada braço"], carga: 7 }
-          ]
-        },
-        {
-          biset: true, nome: "Força 2", descanso: 45,
-          itens: [
-            { nome: "Cadeira Abdutora 45°", musculo: "Glúteo médio", series: ["15 a 20", "15 a 20", "15 a 20"], carga: 35 },
-            { nome: "Crucifixo Invertido", musculo: "Ombro posterior", series: ["15", "15", "15"], carga: 20 }
-          ]
-        },
-        {
-          circuito: true, nome: "Circuito de suor", rodadas: 3, trabalho: 40, pausa: 20, descanso: 60,
-          itens: [
+            { nome: "Step-up no Banco", musculo: "Pernas / Glúteos (alternando)" },
+            { nome: "Corrida Parada", musculo: "Cardio" },
             { nome: "Ponte de Glúteo no Chão", musculo: "Glúteos" },
-            { nome: "Rosca Bíceps com Halteres", musculo: "Bíceps" },
-            { nome: "Tríceps no Banco", musculo: "Tríceps" },
-            { nome: "Polichinelo", musculo: "Cardio" }
+            { nome: "Dead Bug", musculo: "Core" }
           ]
         },
         {
@@ -181,30 +151,6 @@ const PROTOCOLO = {
           fases: [{ label: "Ritmo forte contínuo", seg: 600 }],
           repetir: 1,
           texto: "10 min sem parar. Escada (simulador) em ritmo que dá para falar frases curtas, ou esteira com 10–12% de inclinação, sem segurar no apoio."
-        }
-      ]
-    },
-    // ------------------------------------------------------------ Express
-    {
-      id: "X",
-      nome: "Express 30 min",
-      tempo: "~30 min",
-      fora: true,
-      exercicios: [
-        {
-          intervalo: true, tipo: "Aquecimento", nome: "Aquecimento",
-          fases: [{ label: "Esteira ou bike leve", seg: 180 }],
-          repetir: 1
-        },
-        {
-          circuito: true, nome: "Circuito corpo inteiro", rodadas: 4, trabalho: 40, pausa: 20, descanso: 60,
-          itens: [
-            { nome: "Agachamento Goblet", musculo: "Pernas / Glúteos" },
-            { nome: "Remada com Halteres no Banco Inclinado", musculo: "Costas" },
-            { nome: "Ponte de Glúteo no Chão", musculo: "Glúteos" },
-            { nome: "Flexão de Braço Inclinada no Banco", musculo: "Peito / Tríceps" },
-            { nome: "Escalador", musculo: "Cardio / Core" }
-          ]
         }
       ]
     }
@@ -354,3 +300,22 @@ const COMO_FAZER = {
     "O banco apoia o peito, então a lombar não trabalha."
   ]
 };
+
+COMO_FAZER["Cadeira Extensora"] = [
+  "Joelho alinhado com o eixo do aparelho; rolo na frente do tornozelo.",
+  "Costas no encosto, segure nas alças.",
+  "Estique a perna toda, segure 1 s em cima e desça devagar.",
+  "Erro comum: descer rápido deixando o peso cair."
+];
+COMO_FAZER["Mesa Flexora"] = [
+  "Joelho alinhado com o eixo do aparelho; rolo logo acima do calcanhar.",
+  "Quadril colado no banco o tempo todo — segure nas alças.",
+  "Suba até o máximo que conseguir e desça devagar (2–3 s).",
+  "Erro comum: levantar o quadril do banco para ajudar a subir."
+];
+COMO_FAZER["Elevação Lateral"] = [
+  "Em pé, joelhos destravados, halteres ao lado do corpo.",
+  "Suba os braços para o lado até a altura dos ombros, cotovelos levemente dobrados.",
+  "Pense em levar o halter \"para longe\", não para cima; desça devagar.",
+  "Erro comum: subir os ombros em direção às orelhas ou dar impulso com o corpo."
+];

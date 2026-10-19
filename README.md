@@ -2,20 +2,20 @@
 
 App de treino para usar no celular, sem instalar nada.
 
-**O programa**: 3 treinos de corpo inteiro em sequência (**A → B → C → A…**), mais um **Express de 30 min** para os dias corridos. Não importa o dia da semana: quando for à academia, faça o treino marcado como PRÓXIMO.
+**O programa**: 3 treinos em sequência — **Inferiores A (glúteo) → Superiores → Inferiores B (coxas) → …** Inferiores e superiores nunca no mesmo dia. Não importa o dia da semana: quando for à academia, faça o treino marcado como PRÓXIMO.
 
-Cada treino (~50 min) tem: aquecimento (5 min) → 2 bi-sets de força → circuito de suor por tempo → finalizador de cardio intervalado.
+Cada treino (~50 min) tem: aquecimento (5 min) → 4 exercícios principais, um aparelho por vez (3 séries cada) → circuito no mesmo lugar, guiado por tempo → finalizador de cardio.
 
-**Fase de adaptação (padrão):** 2 rodadas em vez de 3 e cardio contínuo moderado no lugar dos tiros (~40 min). Quando estiver se sentindo bem por 3–4 semanas seguidas, toque em **Completo**.
+**Fase de adaptação (padrão):** circuito com 2 rodadas em vez de 3 e cardio contínuo moderado no lugar dos tiros (~45 min). Quando estiver se sentindo bem por 3–4 semanas seguidas, toque em **Completo**.
 
-**Dia difícil:** marque a caixa e o treino vira só aquecimento + os 2 bi-sets de força (~25 min). Conta no histórico e na sequência normalmente.
+**Dia difícil ou corrido:** marque a caixa e o treino vira só aquecimento + os 4 exercícios principais (~25–30 min). Conta no histórico e na sequência normalmente.
 
 **📋 Hoje (diário de sintomas):** 30 segundos por dia — dor de cabeça, tontura, calorões, energia, rouquidão, remédio, treino, pressão e observação. Embaixo aparece o resumo dos últimos 14 dias e o botão **Copiar resumo** para mandar no WhatsApp da médica ou mostrar na consulta. Dá para preencher dias anteriores com a seta ‹.
 
 **O que o app faz**
 - Marca o PRÓXIMO treino da sequência, com base no histórico
 - Circuitos e cardio com cronômetro guiado: ▶ Iniciar e ele avisa (bipe + vibração) quando trocar de exercício, descansar e voltar. Mantém a tela acesa.
-- Descanso automático nos bi-sets (começa quando você termina o par)
+- Descanso automático: marcou a série, o cronômetro de descanso começa
 - "Como fazer" + botão de vídeo em todos os exercícios, com cuidados para a lombar
 - Registro de carga por exercício, relógio do treino e histórico
 

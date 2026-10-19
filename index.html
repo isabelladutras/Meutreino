@@ -216,6 +216,14 @@
     return rot[(rot.indexOf(ult.id) + 1) % rot.length];
   }
   const emAndamento = id => !!store.get("inicio:" + id, null);
+  // programa mudou de estrutura: limpa marcações antigas (cargas e histórico ficam)
+  try{
+    const ver = P.dias.map(d => d.id + d.exercicios.length).join("|");
+    if (store.get("estrutura", null) !== ver){
+      Object.keys(localStorage).filter(k => k.startsWith("chk:") || k.startsWith("inicio:")).forEach(k => localStorage.removeItem(k));
+      store.set("estrutura", ver);
+    }
+  }catch(e){}
   let dia = P.dias.find(d => emAndamento(d.id))?.id || proximo();
 
   function renderTabs(){
@@ -241,7 +249,6 @@
     if (ex.circuito) return { ...ex, rodadas: Math.min(ex.rodadas, R) };
     if (ex.intervalo && ex.tipo === "Finalizador" && AD.finalizador)
       return { ...ex, nome: ex.nome.replace(/ intervalada/i, "") + " · moderado", fases: [{ label: AD.finalizador.label, seg: AD.finalizador.seg }], repetir: 1, texto: AD.finalizador.texto };
-    if (!ex.biset && !ex.circuito && !ex.intervalo) return { ...ex, series: ex.series.slice(0, Math.max(R, 2)) };
     return ex;
   }
 
@@ -323,10 +330,10 @@
     html += `<section class="dayhead">
       <div class="k">${d.fora ? "Treino curto" : "Treino " + d.id}</div>
       <h2>${esc(d.nome)}</h2>
-      <div class="meta"><span><b>${d.exercicios.filter(x=>!oculto(x)).length}</b> blocos</span><span><b>${dificil() ? "~25 min" : fase()==="adapt" ? "~40 min" : esc(d.tempo)}</b></span></div>
+      <div class="meta"><span><b>${d.exercicios.filter(x=>!oculto(x)).length}</b> blocos</span><span><b>${dificil() ? "~25 min" : fase()==="adapt" ? "~45 min" : esc(d.tempo)}</b></span></div>
       <div class="bar"><i id="prog"></i></div>
       ${AD ? `<div class="seg"><button data-fase="adapt" class="${fase()==="adapt"?"on":""}">Fase de adaptação</button><button data-fase="full" class="${fase()==="full"?"on":""}">Completo</button></div>` : ""}
-      <label class="dif"><input type="checkbox" id="dif" ${dificil()?"checked":""}> <span><b>Dia difícil</b> — só aquecimento + força. Também conta.</span></label>
+      <label class="dif"><input type="checkbox" id="dif" ${dificil()?"checked":""}> <span><b>Dia difícil ou corrido</b> — só aquecimento + exercícios principais (~25 min). Também conta.</span></label>
     </section>`;
     if (P.seguranca) html += `<details class="how safe"><summary>⚠️ Sinais para parar</summary><ul>${P.seguranca.map(n=>`<li>${esc(n)}</li>`).join("")}</ul></details>`;
 
@@ -371,6 +378,7 @@
             <h3>${esc(ex.nome)}</h3>
             <div class="mus">${ex.rodadas} rodadas · ${ex.trabalho}s fazendo / ${ex.pausa}s trocando · ${ex.descanso}s entre rodadas</div>
           </div></div>
+          ${ex.texto ? `<div class="txt">${esc(ex.texto)}</div>` : ""}
           <ol class="ci-list">${ex.itens.map((it,k)=>`<li><span class="n">${k+1}</span><div><b>${esc(it.nome)}</b><span>${esc(it.musculo||"")}</span></div></li>`).join("")}</ol>
           <details class="obs"><summary>Como fazer os ${ex.itens.length} exercícios</summary>${guia}</details>
           <div class="rounds">${rounds}</div>
