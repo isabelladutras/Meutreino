@@ -1,1 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff3d8b"/><stop offset="1" stop-color="#b44dff"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="#16121a"/><g fill="url(#g)"><rect x="96" y="206" width="56" height="100" rx="16"/><rect x="360" y="206" width="56" height="100" rx="16"/><rect x="136" y="176" width="44" height="160" rx="14"/><rect x="332" y="176" width="44" height="160" rx="14"/><rect x="176" y="238" width="160" height="36" rx="12"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff4f93"/>
+      <stop offset=".55" stop-color="#d63bd1"/>
+      <stop offset="1" stop-color="#7b3dff"/>
+    </linearGradient>
+    <radialGradient id="glow" cx=".3" cy=".22" r=".75">
+      <stop offset="0" stop-color="#fff" stop-opacity=".38"/>
+      <stop offset=".6" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="sh" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#3a0a4a" flood-opacity=".35"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <rect width="512" height="512" fill="url(#glow)"/>
+  <g transform="translate(256 256) rotate(-35)" filter="url(#sh)" fill="#fff">
+    <rect x="-118" y="-17" width="236" height="34" rx="17"/>
+    <rect x="-150" y="-78" width="52" height="156" rx="22"/>
+    <rect x="98" y="-78" width="52" height="156" rx="22"/>
+    <rect x="-192" y="-52" width="40" height="104" rx="18"/>
+    <rect x="152" y="-52" width="40" height="104" rx="18"/>
+  </g>
+  <g fill="#fff" opacity=".9">
+    <path d="M396 92l9 22 22 9-22 9-9 22-9-22-22-9 22-9z"/>
+    <path d="M108 380l6 14 14 6-14 6-6 14-6-14-14-6 14-6z" opacity=".7"/>
+  </g>
+</svg>
