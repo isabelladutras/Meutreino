@@ -1,13 +1,23 @@
 # Meu Treino
 
-App de treino (funciona no celular, sem instalar nada) com os 4 treinos da versão enxuta do protocolo Corpo de Musa.
+App de treino para usar no celular, sem instalar nada.
 
-**O que ele faz**
-- Abas T1 a T4, com séries para marcar ✓
-- Cronômetro de descanso automático ao marcar a série (apita e vibra no fim). Nos bi-sets, ele só começa depois que você termina o par.
-- Registro de carga por exercício (fica salvo no celular)
-- Relógio do treino e histórico dos treinos concluídos
-- Ajustes da elevação pélvica para proteger a lombar, mais o plano B
+**O programa**: 3 treinos de corpo inteiro em sequência (**A → B → C → A…**), mais um **Express de 30 min** para os dias corridos. Não importa o dia da semana: quando for à academia, faça o treino marcado como PRÓXIMO.
+
+Cada treino (~50 min) tem: aquecimento (5 min) → 2 bi-sets de força → circuito de suor por tempo → finalizador de cardio intervalado.
+
+**Fase de adaptação (padrão):** 2 rodadas em vez de 3 e cardio contínuo moderado no lugar dos tiros (~40 min). Quando estiver se sentindo bem por 3–4 semanas seguidas, toque em **Completo**.
+
+**Dia difícil:** marque a caixa e o treino vira só aquecimento + os 2 bi-sets de força (~25 min). Conta no histórico e na sequência normalmente.
+
+**📋 Hoje (diário de sintomas):** 30 segundos por dia — dor de cabeça, tontura, calorões, energia, rouquidão, remédio, treino, pressão e observação. Embaixo aparece o resumo dos últimos 14 dias e o botão **Copiar resumo** para mandar no WhatsApp da médica ou mostrar na consulta. Dá para preencher dias anteriores com a seta ‹.
+
+**O que o app faz**
+- Marca o PRÓXIMO treino da sequência, com base no histórico
+- Circuitos e cardio com cronômetro guiado: ▶ Iniciar e ele avisa (bipe + vibração) quando trocar de exercício, descansar e voltar. Mantém a tela acesa.
+- Descanso automático nos bi-sets (começa quando você termina o par)
+- "Como fazer" + botão de vídeo em todos os exercícios, com cuidados para a lombar
+- Registro de carga por exercício, relógio do treino e histórico
 
 ## Colocar no ar pelo GitHub (uns 5 minutos)
 
@@ -33,6 +43,10 @@ Exemplo, para mudar as repetições de um exercício:
 series: ["15", "12", "10", "8"],   // uma entrada por série
 descanso: 60,                      // segundos
 ```
+
+## Versão anterior
+
+A versão enxuta do protocolo Corpo de Musa (T1–T4) está em `versoes/treino-corpo-de-musa-enxuto.js`. Para voltar a ela, renomeie esse arquivo para `treino.js` e substitua o atual. O "Como fazer" desses exercícios está no fim do próprio arquivo.
 
 ## Observações
 
