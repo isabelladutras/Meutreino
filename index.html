@@ -128,6 +128,8 @@
   .meal2 .mb button{flex:1;border:1px solid var(--line);background:var(--bg);color:var(--mut);border-radius:9px;padding:8px 2px;font-size:13px;font-weight:600}
   .meal2.on .mb button.sel{background:var(--ok);border-color:var(--ok);color:#0d2a1d}
   .meal2.no .mb button.sel{background:var(--warn);border-color:var(--warn);color:#2a1d05}
+  .cafebt{display:flex;gap:6px;align-items:center}
+  .mini.skipsel{background:var(--warn);border-color:var(--warn);color:#2a1d05}
   .chk.skip{background:var(--warn);border-color:var(--warn);color:#2a1d05}
   .meal{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--card2);border:2px solid transparent;border-radius:12px;padding:12px;color:var(--txt);font-weight:600;font-size:15px;text-align:left}
   .meal.on{border-color:var(--ok);background:rgba(61,220,151,.10)}
@@ -486,7 +488,7 @@
     h += passos.map(p => {
       const late = dOff === 0 && !p.feito && p.tipo !== "opc" && toMin(p.hora) + 30 < agoraMin;
       const cls = [p.feito ? "on" : "", late ? "late" : "", p === prox && !late ? "next" : "", p.tipo === "opc" ? "opc" : ""].join(" ");
-      const btn = p.tipo === "ref" ? `<button class="chk ${p.feito?"on":""} ${p.pulou?"skip":""}" data-ref="cafe" data-v="sim" aria-label="café da manhã">${p.pulou ? "✕" : "✓"}</button>`
+      const btn = p.tipo === "ref" ? `<div class="cafebt"><button class="mini ${p.pulou?"skipsel":""}" data-ref="cafe" data-v="nao">Não comi</button><button class="chk ${p.feito && !p.pulou?"on":""}" data-ref="cafe" data-v="sim" aria-label="comi o café da manhã">✓</button></div>`
         : `<button class="chk ${p.feito?"on":""}" data-med="${p.id}" aria-label="${esc(p.nome)}">✓</button>`;
       return `<div class="med tl ${cls}"><span class="hr">${p.hora}</span><div class="tx"><b>${esc(p.nome)}</b><span>${esc(p.detalhe)}${late ? " · <em>atrasado</em>" : ""}</span></div>${btn}</div>`;
     }).join("");
@@ -503,13 +505,6 @@
     if (dOff === 0 && dv >= 0 && dv <= 10) h += `<div class="note warn">As receitas de 31/10 vencem em ${brData(S.validadeReceitas)} (${dv} dia${dv===1?"":"s"}). Peça as novas à neuro.</div>`;
     h += `</section>`;
 
-    // SOS
-    h += `<section class="sec"><h3>Crise de dor · remédios SOS</h3>
-      <div class="gold"><b>Regra de ouro:</b> ${esc(S.regraOuro)}</div>
-      ${dOff < 0 ? `<div class="note">Registrando para ${brData(iso)}. Escolha o horário: <input type="time" class="time-in" id="sosHora" value="12:00"></div>` : ""}
-      ${S.sos.map(m => sosBloco(m, iso)).join("")}
-    </section>`;
-
     // alimentação
     const ref = e.refeicoes || {};
     const pulou = S.refeicoes.filter(r => ref[r.id] === "nao").length;
@@ -518,6 +513,13 @@
         <button data-ref="${r.id}" data-v="sim" class="${ref[r.id]===true?"sel":""}">✓ Comi</button><button data-ref="${r.id}" data-v="nao" class="${ref[r.id]==="nao"?"sel":""}">Não comi</button></div></div>`).join("")}
       <button class="meal ${e.whey?"on":""}" data-whey="1" style="grid-column:1/-1">Proteína / whey do dia<i>✓</i></button></div>
       <div class="cnts">${contador("agua","Água",e.agua,0.5,"L")}${contador("cafeina","Café / cafeína",e.cafeina,1,"xíc.")}</div>
+    </section>`;
+
+    // SOS
+    h += `<section class="sec"><h3>Crise de dor · remédios SOS</h3>
+      <div class="gold"><b>Regra de ouro:</b> ${esc(S.regraOuro)}</div>
+      ${dOff < 0 ? `<div class="note">Registrando para ${brData(iso)}. Escolha o horário: <input type="time" class="time-in" id="sosHora" value="12:00"></div>` : ""}
+      ${S.sos.map(m => sosBloco(m, iso)).join("")}
     </section>`;
 
     // movimento
