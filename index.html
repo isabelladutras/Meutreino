@@ -247,7 +247,14 @@
     set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)) }catch(e){} },
     del(k){ try{ localStorage.removeItem(k) }catch(e){} }
   };
-  const P = PROTOCOLO, S = SAUDE;
+  const P = PROTOCOLO, S = (typeof SAUDE !== "undefined") ? SAUDE : { faltaArquivo: true };
+  // valores padrão, caso o treino.js seja de uma versão anterior
+  S.rotina = S.rotina || { acordar: "07:00", dormir: "22:45", cafe: "07:30" };
+  S.estoque = S.estoque || { data: "2026-11-01", qtd: {}, nomeCaixa: {}, unidade: {} };
+  S.estoque.qtd = S.estoque.qtd || {};
+  S.avisoPrednisolona = S.avisoPrednisolona || "";
+  S.validadeReceitas = S.validadeReceitas || "2026-11-30";
+  ["diarios","cursos","semanais","noiteSeDor","sos","refeicoes","lembretesEndocrino"].forEach(k => S[k] = S[k] || []);
   const GUIA = (typeof COMO_FAZER !== "undefined") ? COMO_FAZER : {};
   const $ = s => document.querySelector(s);
   const fmt = s => { s = Math.max(0, Math.ceil(s)); return Math.floor(s/60) + ":" + String(s%60).padStart(2,"0") };
@@ -316,7 +323,10 @@
     const b = e.target.closest(".tab"); if (!b) return;
     dia = b.dataset.d; render(); window.scrollTo({ top: 0 });
   });
-  function render(){
+  function render(){ try{ renderInner() }catch(err){
+    $("#main").innerHTML = `<section class="sec"><h3>Algo deu errado</h3><div class="mus">Seus dados continuam salvos. Se você atualizou pelo GitHub, confira se enviou o <b>index.html</b> e o <b>treino.js</b> da mesma versão.</div><div class="note">${esc(err && err.message)}</div></section>` } }
+  function renderInner(){
+    if (S.faltaArquivo && secao !== "treino"){ renderNav(); $("#main").innerHTML = `<section class="sec"><h3>Falta atualizar o treino.js</h3><div class="mus">Esta versão do app precisa do <b>treino.js</b> novo. Envie ele para o GitHub junto com o index.html.</div></section>`; return }
     renderNav();
     if (secao === "hoje") renderHoje();
     else if (secao === "remedios") renderRemedios();
@@ -487,7 +497,7 @@
     if (!c.ozivyInicio) h += `<div class="note warn">Ozivy: ${esc(S.semanais[0].aviso)} No dia da 1ª aplicação, toque em <button class="mini acc" data-iniciar="ozivy">Apliquei hoje</button> e ele aparece toda semana no mesmo dia.</div>`;
     else if (!ag.some(m => m.id === "ozivy")){ const n = diasEntre(c.ozivyInicio, iso); const falta = 7 - (((n % 7) + 7) % 7); h += `<div class="note">Próxima aplicação do Ozivy: ${SEM[(dataDe(iso).getDay() + falta) % 7]} (${brData(hojeISO(dOff + falta))}).</div>` }
     if (dc.length >= cic.limiteDias && !usouCic) h += `<div class="note warn">Você já usou a ciclobenzaprina em ${dc.length} dias, o limite da receita. Fale com a neuro antes de continuar.</div>`;
-    if (!cfg().prednisolonaOk && (!c.prednisonaInicio || doseCurso(S.cursos.find(x => x.id === "prednisona"), iso))) h += `<div class="note warn">⚠️ ${esc(S.avisoPrednisolona)} <button class="mini" data-predok="1">Já confirmei</button></div>`;
+    if (S.avisoPrednisolona && !cfg().prednisolonaOk && (!c.prednisonaInicio || doseCurso(S.cursos.find(x => x.id === "prednisona"), iso))) h += `<div class="note warn">⚠️ ${esc(S.avisoPrednisolona)} <button class="mini" data-predok="1">Já confirmei</button></div>`;
     if (dOff === 0){ const al = alertasEstoque(); if (al.length) h += `<div class="note warn">📦 Comprar/renovar: ${al.map(esc).join(" · ")}</div>` }
     const dv = diasEntre(hojeISO(), S.validadeReceitas);
     if (dOff === 0 && dv >= 0 && dv <= 10) h += `<div class="note warn">As receitas de 31/10 vencem em ${brData(S.validadeReceitas)} (${dv} dia${dv===1?"":"s"}). Peça as novas à neuro.</div>`;
