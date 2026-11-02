@@ -11,7 +11,7 @@ const SAUDE = {
   diarios: [
     { id: "polivit",   periodo: "manha", hora: "07:30", nome: "Polivitamínico", detalhe: "1 por dia, com o café da manhã (ajuste se a endócrino indicou outro horário)" },
     { id: "topiramato", periodo: "noite", hora: "22:00", nome: "Topiramato 25 mg", detalhe: "1 comprimido à noite" },
-    { id: "magnesio",  periodo: "noite", hora: "22:00", nome: "Magnésio dimalato 300 mg", detalhe: "1 cápsula, 30 a 60 min antes de deitar · uso contínuo por 3 meses" }
+    { id: "magnesio",  periodo: "noite", hora: "22:00", inicio: "2026-11-02", nome: "Magnésio dimalato 300 mg", detalhe: "1 cápsula, 30 a 60 min antes de deitar · uso contínuo por 3 meses" }
   ],
   // Tratamentos com começo e fim: o app calcula a dose de cada dia a partir da data de início
   cursos: [
@@ -37,7 +37,7 @@ const SAUDE = {
   ],
   // Remédios de crise (SOS). Regras contadas em 24 h corridas.
   sos: [
-    { id: "zolmitriptana", nome: "Zolmitriptana 2,5 mg", grupo: "triptano", quando: "Crise que começa rápida e intensa",
+    { id: "zolmitriptana", tenho: false, nome: "Zolmitriptana 2,5 mg", grupo: "triptano", quando: "Crise que começa rápida e intensa",
       regra: "1 comprimido no primeiro sinal de crise moderada a forte. Se persistir após 2 h, pode tomar mais 1. Máximo 10 mg (4 comprimidos) em 24 h.",
       repetirHoras: 2, max24h: 4 },
     { id: "naratriptana", nome: "Naratriptana 2,5 mg", grupo: "triptano", quando: "Crise que vem devagar, dura muitas horas ou volta",

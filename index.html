@@ -358,12 +358,13 @@
     S.cursos.filter(c => c.periodo === "manha").sort((a,b) => (a.ordem||0) - (b.ordem||0)).forEach(c => {
       const d = doseCurso(c, iso); if (d) out.push({ id: c.id, periodo: "manha", nome: c.nome + (d.dose ? " · " + d.dose : ""), detalhe: `${c.detalhe} · dia ${d.n} de ${d.tot}` });
     });
-    S.diarios.filter(m => m.periodo === "manha").forEach(m => out.push({ id: m.id, periodo: "manha", nome: m.nome, detalhe: m.detalhe }));
+    const ativo = m => { const ini = cfg()[m.id + "Inicio"] || m.inicio; return !ini || iso >= ini };
+    S.diarios.filter(m => m.periodo === "manha" && ativo(m)).forEach(m => out.push({ id: m.id, periodo: "manha", nome: m.nome, detalhe: m.detalhe }));
     S.semanais.forEach(m => {
       const ini = inicioDe(m.id); if (!ini) return;
       const n = diasEntre(ini, iso); if (n >= 0 && n % 7 === 0) out.push({ id: m.id, periodo: "semana", nome: m.nome, detalhe: `${m.detalhe} · ${n/7 + 1}ª semana` });
     });
-    S.diarios.filter(m => m.periodo === "noite").forEach(m => out.push({ id: m.id, periodo: "noite", nome: m.nome, detalhe: m.detalhe }));
+    S.diarios.filter(m => m.periodo === "noite" && ativo(m)).forEach(m => out.push({ id: m.id, periodo: "noite", nome: m.nome, detalhe: m.detalhe }));
     S.cursos.filter(c => c.periodo === "noite").forEach(c => {
       const d = doseCurso(c, iso); if (d) out.push({ id: c.id, periodo: "noite", nome: c.nome, detalhe: `${c.detalhe} · dia ${d.n} de ${d.tot}` });
     });
@@ -519,7 +520,8 @@
     h += `<section class="sec"><h3>Crise de dor · remédios SOS</h3>
       <div class="gold"><b>Regra de ouro:</b> ${esc(S.regraOuro)}</div>
       ${dOff < 0 ? `<div class="note">Registrando para ${brData(iso)}. Escolha o horário: <input type="time" class="time-in" id="sosHora" value="12:00"></div>` : ""}
-      ${S.sos.map(m => sosBloco(m, iso)).join("")}
+      ${S.sos.filter(tenho).map(m => sosBloco(m, iso)).join("")}
+      ${S.sos.filter(m => !tenho(m)).map(m => `<div class="note">Você não tem ${esc(m.nome)} em casa. Se comprar, ative em Remédios → Crise de dor.</div>`).join("")}
     </section>`;
 
     // movimento
@@ -576,13 +578,18 @@
     let msg = "", lista = [];
     if (crise.intens <= 3){
       msg = `Dor ${crise.intens}/10. Pela receita, os triptanos são para crise <b>moderada a forte</b>. Para dor leve, a opção prescrita é o naproxeno no início da dor.`;
-      lista = [np, z, n];
+      lista = [np, z, n].filter(tenho);
     } else {
       const pref = crise.tipo === "rapida" ? z : crise.tipo === "lenta" ? n : null;
-      if (pref){
+      if (pref && !tenho(pref)){
+        const alt = [z, n].find(x => x !== pref && tenho(x));
+        msg = `A neuro indicou <b>${esc(pref.nome)}</b> para esse tipo de crise, mas você não tem em casa. Pergunte à neuro o que usar no lugar. Abaixo, o que você tem e está dentro da regra.`;
+        lista = [alt, np].filter(Boolean);
+      } else if (pref){
         const st = statusSOS(pref);
         if (st.ok) { msg = `Crise ${crise.tipo === "rapida" ? "rápida e intensa" : "lenta ou que volta"}: a neuro indicou <b>${esc(pref.nome)}</b>.`; lista = [pref, np] }
-        else { const outro = pref === z ? n : z; msg = `A neuro indicaria <b>${esc(pref.nome)}</b>, mas agora não pode: ${esc(st.txt)} Veja abaixo o que está liberado.`; lista = [outro, np, pref] }
+        else { const outro = pref === z ? n : z; msg = `A neuro indicaria <b>${esc(pref.nome)}</b>, mas agora não pode: ${esc(st.txt)} Veja abaixo o que está liberado.`; lista = [outro, np, pref].filter(tenho) }
+      } else if (!tenho(z) || !tenho(n)) { const t = [z, n].find(tenho); msg = t ? `Você tem só ${esc(t.nome)} de triptano em casa.` : "Você não tem triptano em casa."; lista = [t, np].filter(Boolean)
       } else { msg = `Escolha um triptano só: <b>Zolmitriptana</b> se a crise veio rápida e forte, <b>Naratriptana</b> se veio devagar ou costuma durar e voltar.`; lista = [z, n, np] }
     }
     return h + `<section class="sec crisebox"><h3>O que tomar · dor ${crise.intens}/10 <button class="mini" data-crise="0">cancelar</button></h3>
@@ -598,6 +605,7 @@
     crise = null;
   }
 
+  function tenho(m){ const v = cfg()["tenho_" + m.id]; return v == null ? m.tenho !== false : v }
   function sosBloco(m, iso){
     const st = dOff === 0 ? statusSOS(m) : null;
     const doDia = getSOS().map((x,k) => ({ ...x, k })).filter(x => x.id === m.id && isoDe(new Date(x.ts)) === iso);
@@ -674,7 +682,9 @@
     const dt = (k, label) => `<div class="cfg">${label} <input type="date" class="time-in" data-cfg="${k}" value="${esc(c[k] || "")}">${c[k] ? `<button class="mini" data-cfglimpa="${k}">limpar</button>` : ""}</div>`;
     let h = `<section class="dayhead"><div class="k">Receitas de 31/10</div><h2>Seus remédios</h2>
       <div class="mus">Transcrito das receitas da neuro e das orientações da endócrino. Na dúvida, vale sempre a receita e a médica.</div></section>`;
-    h += `<section class="sec"><h3>Todo dia</h3>${S.diarios.map(m => `<div class="rx"><b>${esc(m.nome)}</b><p>${m.periodo==="manha"?"Manhã":"Noite"} · ${esc(m.detalhe)}</p></div>`).join("")}</section>`;
+    h += `<section class="sec"><h3>Todo dia</h3>${S.diarios.map(m => { const ini = c[m.id + "Inicio"] || m.inicio;
+      return `<div class="rx"><b>${esc(m.nome)}</b><p>${esc(m.hora || "")} · ${esc(m.detalhe)}</p>${ini && ini > hojeISO() ? `<p style="color:var(--warn)">Começa em ${brData(ini)}: até lá não aparece no Hoje.</p>` : ""}
+        <div class="cfg">Começa em <input type="date" class="time-in" data-cfg="${m.id}Inicio" value="${esc(ini || "")}"></div></div>` }).join("")}</section>`;
     h += `<section class="sec"><h3>Com data de início</h3>`;
     S.cursos.forEach(cu => {
       const ini = inicioDe(cu.id);
@@ -688,7 +698,8 @@
     h += `<section class="sec"><h3>Semanal</h3><div class="rx"><b>${esc(oz.nome)}</b><p>${esc(oz.detalhe)}</p><p style="color:var(--warn)">${esc(oz.aviso)}</p>
       ${dt("ozivyInicio", "1ª aplicação em")}${c.ozivyInicio ? `<p>Aplicação toda ${SEM[dataDe(c.ozivyInicio).getDay()]}.</p>` : ""}</div></section>`;
     h += `<section class="sec"><h3>Crise de dor (SOS)</h3><div class="gold"><b>Regra de ouro:</b> ${esc(S.regraOuro)}</div>
-      ${S.sos.map(m => `<div class="rx"><b>${esc(m.nome)}</b><p><b style="display:inline;font-size:13.5px">Quando:</b> ${esc(m.quando)}</p><p>${esc(m.regra)}</p></div>`).join("")}
+      ${S.sos.map(m => `<div class="rx"><b>${esc(m.nome)}</b><p><b style="display:inline;font-size:13.5px">Quando:</b> ${esc(m.quando)}</p><p>${esc(m.regra)}</p>
+        <div class="cfg">Tenho em casa? <div class="seg" style="flex:0 0 150px"><button data-tenho="${m.id}" data-v="1" class="${tenho(m)?"on":""}">Sim</button><button data-tenho="${m.id}" data-v="0" class="${tenho(m)?"":"on"}">Não</button></div></div></div>`).join("")}
       ${S.noiteSeDor.map(m => `<div class="rx"><b>${esc(m.nome)}</b><p>${esc(m.detalhe)}</p></div>`).join("")}
       <div class="note">O app conta as doses em 24 h corridas e bloqueia (com aviso) o que estiver fora da regra. Se você tomou mesmo assim, registre: a neuro precisa saber.</div></section>`;
     const eb = estoqueBase();
@@ -722,6 +733,8 @@
   });
   $("#main").addEventListener("click", e => {
     if (secao !== "remedios") return;
+    const tb = e.target.closest("[data-tenho]");
+    if (tb){ setCfg("tenho_" + tb.dataset.tenho, tb.dataset.v === "1"); toast("✓ Salvo"); renderRemedios(); return }
     const b = e.target.closest("[data-cfglimpa]"); if (!b) return;
     duploToque(b, "Limpar?", () => { setCfg(b.dataset.cfglimpa, null); renderRemedios() });
   });
