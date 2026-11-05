@@ -30,8 +30,8 @@
   h1 span{background:linear-gradient(90deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
   .hdate{color:var(--mut);font-size:14px}
   .top{position:sticky;top:env(safe-area-inset-top, 0px);z-index:5;background:var(--bg);box-shadow:0 -120px 0 120px var(--bg);clip-path:inset(-120px 0 0 0);padding:10px 0 8px}
-  .mainnav{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px}
-  .mainnav button{position:relative;border:0;background:transparent;color:var(--mut);padding:9px 2px;border-radius:10px;font-weight:600;font-size:14px}
+  .mainnav{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px}
+  .mainnav button{position:relative;border:0;background:transparent;color:var(--mut);padding:9px 0;border-radius:10px;font-weight:600;font-size:13px;min-width:0}
   .mainnav button.on{background:linear-gradient(90deg,var(--acc),var(--acc2));color:#fff}
   .mainnav .dot{position:absolute;top:5px;right:8px;width:7px;height:7px;border-radius:50%;background:var(--warn)}
   .tabs{display:flex;gap:8px;padding-top:10px;overflow-x:auto;scrollbar-width:none}
@@ -161,6 +161,101 @@
   .crisebtn{background:linear-gradient(90deg,#d6336c,#7b3dff);margin:0 0 12px}
   .crisebox{border-color:rgba(255,61,139,.5)}
   .seg.col{flex-direction:column;gap:4px} .seg.col button{text-align:left;padding:10px 12px}
+  details.refd summary{list-style:none;display:flex;align-items:center;gap:10px;cursor:pointer}
+  details.refd summary::-webkit-details-marker{display:none}
+  details.refd summary .hr{font-weight:800;font-size:14px;color:var(--mut);font-variant-numeric:tabular-nums}
+  details.refd summary b{flex:1;font-size:17px}
+  details.refd summary::after{content:"▾";color:var(--mut)} details.refd[open] summary::after{content:"▴"}
+  .pill{font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px}
+  .pill.ok{background:rgba(61,220,151,.15);color:var(--ok)} .pill.no{background:rgba(255,181,71,.15);color:var(--warn)}
+  .opts{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+  .opts button{border:1px solid var(--line);background:var(--card2);color:var(--mut);border-radius:999px;padding:8px 12px;font-size:13.5px;font-weight:600}
+  .opts button.on{background:linear-gradient(90deg,var(--acc),var(--acc2));border-color:transparent;color:#fff}
+  .grp{padding:9px 0;border-top:1px solid var(--line)}
+  .gn{font-weight:700;font-size:14px;margin-bottom:6px} .gn span{color:var(--mut);font-weight:400}
+  .chs{display:flex;flex-direction:column;gap:5px}
+  .chs button{text-align:left;border:1px solid var(--line);background:var(--bg);color:var(--txt);border-radius:10px;padding:9px 11px;font-size:14px}
+  .chs button.on{border-color:var(--ok);background:rgba(61,220,151,.12)}
+  .chs button.on::before{content:"✓ ";color:var(--ok);font-weight:800}
+  .fx{display:flex;gap:10px;align-items:center;width:100%;text-align:left;border:1px solid var(--line);background:var(--bg);color:var(--txt);border-radius:10px;padding:9px 11px;font-size:14px}
+  .fx i{font-style:normal;width:22px;height:22px;border-radius:6px;border:2px solid var(--line);display:grid;place-items:center;color:transparent;flex:0 0 22px;font-size:13px}
+  .fx.on{border-color:var(--ok);background:rgba(61,220,151,.12)} .fx.on i{background:var(--ok);border-color:var(--ok);color:#0d2a1d}
+  .fx em{font-style:normal;color:var(--mut);font-size:12.5px}
+  .mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;margin:10px 0 4px}
+  .mgrid label{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--mut)}
+  .mgrid input{width:100%}
+
+  /* ===== layout novo ===== */
+  .dayhead.slim{padding:10px 12px;margin-bottom:10px}
+  .dayhead.slim .dnav h2{font-size:18px}
+  .dayhead.slim .dnav button{width:36px;height:36px}
+  .subnav{flex:1 1 100%;display:flex;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:3px;margin-top:8px}
+  .subnav button{flex:1;border:0;background:transparent;color:var(--mut);border-radius:9px;padding:8px 4px;font-weight:600;font-size:13.5px}
+  .subnav button.on{background:var(--card2);color:var(--txt);box-shadow:inset 0 0 0 1px var(--acc)}
+  .avisos{border-color:rgba(255,181,71,.45);background:rgba(255,181,71,.06)}
+  .avisos h3{color:var(--warn)}
+  .av{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:9px 0;border-top:1px solid rgba(255,181,71,.18);font-size:13.5px;color:#ffe1b3}
+  .avisos h3 + .av{border-top:0}
+  .av span{flex:1 1 220px;min-width:0}
+  .av .x{flex:0 0 30px;height:30px;border-radius:8px;border:1px solid rgba(255,181,71,.35);background:transparent;color:var(--warn)}
+  .agora{border-radius:20px;padding:16px;margin-bottom:12px;background:linear-gradient(150deg,rgba(255,61,139,.22),rgba(180,77,255,.18));border:1px solid rgba(255,61,139,.45)}
+  .agora.late{background:linear-gradient(150deg,rgba(255,181,71,.22),rgba(255,107,107,.12));border-color:rgba(255,181,71,.55)}
+  .agora.done{background:rgba(61,220,151,.10);border-color:rgba(61,220,151,.45)}
+  .agora .k{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#ffb3d1}
+  .agora.late .k{color:var(--warn)} .agora.done .k{color:var(--ok)}
+  .agora h2{margin:4px 0 4px;font-size:21px;line-height:1.2;text-wrap:balance}
+  .agora .mus{color:#d9cde2}
+  .acts2{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  .big{flex:1 1 auto;min-width:96px;border:0;border-radius:12px;padding:13px 12px;font-weight:700;font-size:15px;color:var(--txt);background:var(--card2)}
+  .big.ok{background:var(--ok);color:#0d2a1d}
+  .big.warn{background:var(--warn);color:#2a1d05}
+  .big.ghost2{background:rgba(255,255,255,.06);border:1px solid var(--line)}
+  .depois{margin-top:10px;font-size:13px;color:#cfc3d8}
+  .tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+  .tile{display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;color:var(--txt);min-width:0}
+  .tile.wide{grid-column:1/-1}
+  .tile.done{border-color:rgba(61,220,151,.5)}
+  .tile .l{font-size:12px;color:var(--mut);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+  .tile .v{font-size:24px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.15}
+  .tile .v small{font-size:13px;color:var(--mut);font-weight:600}
+  .tile .pb{align-self:stretch;height:5px;border-radius:5px;background:var(--card2);overflow:hidden;margin-top:4px}
+  .tile .pb i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2))}
+  .tile .pb.blue i{background:linear-gradient(90deg,#2fa9d6,#5b6cff)}
+  .tile .aq{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+  .rxs{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:10px 0;border-top:1px solid var(--line);font-size:13.5px;color:var(--mut)}
+  .sec > h3 + .rxs{border-top:0}
+  .rxs b{color:var(--txt)}
+  /* dieta */
+  .ref{background:var(--card);border:1px solid var(--line);border-radius:18px;margin-bottom:10px;overflow:hidden}
+  .ref.ok{border-color:rgba(61,220,151,.45)} .ref.no{border-color:rgba(255,181,71,.45)}
+  .ref.open{padding-bottom:14px}
+  .refh{display:flex;align-items:center;gap:12px;width:100%;border:0;background:transparent;color:var(--txt);padding:14px 16px;text-align:left}
+  .refh .hr{font-weight:800;font-size:14px;color:var(--mut);font-variant-numeric:tabular-nums;flex:0 0 42px}
+  .refh .t{flex:1;min-width:0}
+  .refh .t b{display:block;font-size:17px}
+  .refh .t small{display:block;font-size:12.5px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .refh i{font-style:normal;color:var(--mut)}
+  .pill.nx{background:rgba(255,61,139,.15);color:#ff8fbd}
+  .optcards{display:flex;gap:8px;overflow-x:auto;padding:0 16px 4px;scrollbar-width:none;scroll-snap-type:x mandatory}
+  .optcards::-webkit-scrollbar{display:none}
+  .optcard{flex:0 0 150px;scroll-snap-align:start;display:flex;flex-direction:column;gap:4px;text-align:left;border:1px solid var(--line);background:var(--card2);color:var(--txt);border-radius:14px;padding:11px 12px}
+  .optcard b{font-size:14.5px}
+  .optcard span{font-size:12px;color:var(--mut);line-height:1.3}
+  .optcard.on{border-color:transparent;background:linear-gradient(150deg,rgba(255,61,139,.30),rgba(180,77,255,.26))}
+  .optcard.on span{color:#e7d9ef}
+  .incl{display:flex;flex-wrap:wrap;gap:6px;padding:12px 16px 0}
+  .incl .ic{font-size:13px;background:rgba(61,220,151,.10);border:1px solid rgba(61,220,151,.35);color:var(--txt);border-radius:999px;padding:6px 10px}
+  .incl .ic small{color:var(--mut)}
+  .gl{display:block;width:100%;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);margin-bottom:7px}
+  .gl small{text-transform:none;letter-spacing:0;font-weight:500}
+  .grp2{padding:12px 16px 0}
+  .chips2{display:flex;flex-wrap:wrap;gap:6px}
+  .chip2{border:1px solid var(--line);background:var(--bg);color:var(--txt);border-radius:999px;padding:8px 12px;font-size:14px}
+  .chip2.on{background:var(--ok);border-color:var(--ok);color:#0d2a1d;font-weight:700}
+  .qtd{margin-top:7px;font-size:13px;color:var(--mut)} .qtd b{color:var(--txt)}
+  .ref .acts2{padding:0 16px}
+  .ref .note{margin:10px 16px 0}
+  details.how .mgrid{margin-top:10px}
   /* SOS */
   .sos{border-top:1px solid var(--line);padding:12px 0}
   .sec > h3 + .note + .sos, .sec > h3 + .sos{border-top:0}
@@ -198,6 +293,7 @@
   .tm{position:fixed;left:0;right:0;bottom:0;z-index:10;transform:translateY(110%);transition:transform .25s,background .3s;background:#0e0b11;border-top:1px solid var(--line);
     padding:12px max(16px, env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px))}
   .tm.show{transform:none}
+  .tm:not(.show){visibility:hidden}
   .tm.cardio{background:linear-gradient(90deg,#0f3550,#232a6b)}
   .tm.end{background:linear-gradient(90deg,#0f3a2a,#16362d)}
   .tm .in{max-width:560px;margin:0 auto;display:flex;align-items:center;gap:10px}
@@ -258,6 +354,7 @@
   S.validadeReceitas = S.validadeReceitas || "2026-11-30";
   ["diarios","cursos","semanais","noiteSeDor","sos","refeicoes","lembretesEndocrino"].forEach(k => S[k] = S[k] || []);
   const GUIA = (typeof COMO_FAZER !== "undefined") ? COMO_FAZER : {};
+  const DT = (typeof DIETA !== "undefined") ? DIETA : null;
   const $ = s => document.querySelector(s);
   const fmt = s => { s = Math.max(0, Math.ceil(s)); return Math.floor(s/60) + ":" + String(s%60).padStart(2,"0") };
   const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -290,7 +387,7 @@
 
   // ================= estado =================
   let secao = store.get("secao", "hoje");
-  if (!["hoje","treino","remedios","resumo"].includes(secao)) secao = "hoje";
+  if (!["hoje","dieta","treino","remedios","resumo"].includes(secao)) secao = "hoje";
   let dOff = 0;
   const cfg = () => store.get("cfg", {});
   const setCfg = (k, v) => { const c = cfg(); if (v == null) delete c[k]; else c[k] = v; store.set("cfg", c) };
@@ -309,19 +406,25 @@
   // ================= navegação =================
   function renderNav(){
     const pend = pendentesHoje();
-    const items = [["hoje","Hoje"],["treino","Treino"],["remedios","Remédios"],["resumo","Resumo"]];
-    $("#mainnav").innerHTML = items.map(([k,l]) => `<button data-sec="${k}" class="${secao===k?"on":""}">${l}${k==="hoje" && pend && secao!=="hoje" ? '<i class="dot"></i>' : ""}</button>`).join("");
+    const items = [["hoje","Hoje"],["remedios","Remédios"],["dieta","Dieta"],["treino","Treino"],["resumo","Resumo"]];
+    $("#mainnav").innerHTML = items.map(([k,l]) => `<button data-sec="${k}" class="${secao===k?"on":""}">${l}${k==="remedios" && pend && secao!=="remedios" ? '<i class="dot"></i>' : ""}</button>`).join("");
+    const t = $("#tabs");
     if (secao === "treino"){
       const nx = proximo();
-      $("#tabs").innerHTML = P.dias.map(d => `<button class="tab ${d.id===dia?"on":""}" data-d="${d.id}">${d.principal ? "💙 " : d.id + " · "}${esc(d.nome)}${d.id===nx?'<span class="nx">PRÓXIMO</span>':""}</button>`).join("");
-      $("#tabs").hidden = false;
-    } else { $("#tabs").innerHTML = ""; $("#tabs").hidden = true }
+      t.innerHTML = P.dias.map(d => `<button class="tab ${d.id===dia?"on":""}" data-d="${d.id}">${d.principal ? "💙 " : d.id + " · "}${esc(d.nome)}${d.id===nx?'<span class="nx">PRÓXIMO</span>':""}</button>`).join("");
+      t.hidden = false;
+    } else if (secao === "remedios"){
+      t.innerHTML = `<div class="subnav">${[["hoje","Do dia"],["sos","Crise"],["gerenciar","Gerenciar"]].map(([k,l]) => `<button data-rsub="${k}" class="${rsub===k?"on":""}">${l}</button>`).join("")}</div>`;
+      t.hidden = false;
+    } else { t.innerHTML = ""; t.hidden = true }
   }
+  let rsub = "hoje";
   $("#mainnav").addEventListener("click", e => {
     const b = e.target.closest("[data-sec]"); if (!b) return;
-    secao = b.dataset.sec; store.set("secao", secao); dOff = 0; render(); window.scrollTo({ top: 0 });
+    secao = b.dataset.sec; store.set("secao", secao); dOff = 0; if (secao === "remedios") rsub = "hoje"; render(); window.scrollTo({ top: 0 });
   });
   $("#tabs").addEventListener("click", e => {
+    const r = e.target.closest("[data-rsub]"); if (r){ rsub = r.dataset.rsub; render(); window.scrollTo({ top: 0 }); return }
     const b = e.target.closest(".tab"); if (!b) return;
     dia = b.dataset.d; render(); window.scrollTo({ top: 0 });
   });
@@ -330,7 +433,8 @@
   function renderInner(){
     if (S.faltaArquivo && secao !== "treino"){ renderNav(); $("#main").innerHTML = `<section class="sec"><h3>Falta atualizar o treino.js</h3><div class="mus">Esta versão do app precisa do <b>treino.js</b> novo. Envie ele para o GitHub junto com o index.html.</div></section>`; return }
     renderNav();
-    if (secao === "hoje") renderHoje();
+    if (secao === "hoje") renderPainel();
+    else if (secao === "dieta") renderDieta();
     else if (secao === "remedios") renderRemedios();
     else if (secao === "resumo") renderResumo();
     else renderTreino();
@@ -448,7 +552,7 @@
   const contador = (campo, label, val, passo, unidade) => `<div class="cnt"><span class="l">${label}</span><div class="c">
     <button class="stp" data-cnt="${campo}" data-p="${-passo}" aria-label="menos">−</button><span class="v" id="c-${campo}">${fmtN(val||0)}<small> ${unidade}</small></span>
     <button class="stp" data-cnt="${campo}" data-p="${passo}" aria-label="mais">+</button></div></div>`;
-  const fmtN = n => String(Math.round(n*10)/10).replace(".", ",");
+  const fmtN = n => String(Math.round(n*100)/100).replace(".", ",");
 
   function treinouEm(iso, ids){
     const [y,m,d] = iso.split("-").map(Number);
@@ -461,93 +565,124 @@
       <button class="chk ${on?"on":""}" data-med="${m.id}" aria-label="${esc(m.nome)}">✓</button></div>`;
   }
 
-  function renderHoje(){
-    const iso = hojeISO(dOff), e = entrada(iso), ag = agenda(iso);
-    const manha = ag.filter(m => m.periodo === "manha"), semana = ag.filter(m => m.periodo === "semana"), noite = ag.filter(m => m.periodo === "noite");
-    const c = cfg();
-    let h = `<section class="dayhead">
-      <div class="dnav"><button data-dnav="-1" aria-label="dia anterior">‹</button><h2>${dOff===0?"Hoje":dOff===-1?"Ontem":SEM[dataDe(iso).getDay()]} · ${brData(iso)}</h2><button data-dnav="1" ${dOff>=0?"disabled":""} aria-label="próximo dia">›</button></div>
-      <div class="mus" style="text-align:center;margin-top:6px">Tudo salva sozinho. <b id="salvo" style="color:var(--ok)">${Object.keys(e).length ? "✓ salvo" : ""}</b></div>
-    </section>`;
+  function renderHoje(){ render() }
+  const dnavHTML = iso => `<div class="dnav"><button data-dnav="-1" aria-label="dia anterior">‹</button><h2>${dOff===0?"Hoje":dOff===-1?"Ontem":SEM[dataDe(iso).getDay()]} · ${brData(iso)}</h2><button data-dnav="1" ${dOff>=0?"disabled":""} aria-label="próximo dia">›</button></div>`;
 
-    // crise (só hoje)
-    if (dOff === 0) h += criseHTML();
-
-    // linha do tempo dos remédios
-    const cic = S.noiteSeDor[0], dc = diasCiclo(), usouCic = !!(e.meds||{})[cic.id];
-    const passos = ag.map(m => ({ ...m, tipo: "med", feito: !!(e.meds||{})[m.id], ordem: m.ordem ?? 3 }));
-    const cafeV = (e.refeicoes||{}).cafe;
-    passos.push({ id: "cafe", tipo: "ref", hora: S.rotina.cafe, ordem: 1, nome: "Café da manhã", feito: cafeV === true || cafeV === "nao", pulou: cafeV === "nao",
-      detalhe: cafeV === "nao" ? "você marcou que não comeu" : ag.some(m => m.id === "pantoprazol") ? "pelo menos 30 min depois do pantoprazol" : "depois dele, o que é do café" });
-    passos.push({ id: cic.id, tipo: "opc", hora: cic.hora, ordem: 9, nome: cic.nome, feito: usouCic,
+  // passos do dia: remédios + café (+ outras refeições, no painel)
+  function passosDia(iso, comRefeicoes){
+    const e = entrada(iso), ag = agenda(iso), cic = S.noiteSeDor[0], usouCic = !!(e.meds||{})[cic.id], dc = diasCiclo();
+    const ps = ag.map(m => ({ ...m, tipo: "med", feito: !!(e.meds||{})[m.id], ordem: m.ordem ?? 3 }));
+    const refs = DT ? DT.refeicoes : S.refeicoes.map(r => ({ ...r, hora: r.id === "cafe" ? S.rotina.cafe : "12:00" }));
+    refs.forEach(r => { if (!comRefeicoes) return;
+      const v = (e.refeicoes||{})[r.id];
+      ps.push({ id: r.id, tipo: "ref", hora: r.id === "cafe" ? S.rotina.cafe : r.hora, ordem: 1, nome: r.nome, feito: v === true || v === "nao", pulou: v === "nao",
+        detalhe: v === "nao" ? "você marcou que não comeu" : r.id === "cafe" && ag.some(m => m.id === "pantoprazol") ? "pelo menos 30 min depois do pantoprazol" : r.id === "cafe" ? "depois dele, o que é do café" : "escolha no cardápio" }) });
+    if (cic) ps.push({ id: cic.id, tipo: "opc", hora: cic.hora, ordem: 9, nome: cic.nome, feito: usouCic,
       detalhe: "só se tiver dor · ao deitar" + (dc.length ? ` · usada em ${dc.length} de no máximo ${cic.limiteDias} dias` : "") });
-    passos.sort((x,y) => toMin(x.hora) - toMin(y.hora) || x.ordem - y.ordem);
-    const agoraMin = new Date().getHours()*60 + new Date().getMinutes();
-    const obrig = passos.filter(p => p.tipo !== "opc");
-    const prox = dOff === 0 ? obrig.find(p => !p.feito) : null;
-    h += `<section class="sec"><h3>Remédios de hoje <b>${obrig.filter(p => p.feito).length}/${obrig.length}</b></h3>`;
-    h += passos.map(p => {
-      const late = dOff === 0 && !p.feito && p.tipo !== "opc" && toMin(p.hora) + 30 < agoraMin;
-      const cls = [p.feito ? "on" : "", late ? "late" : "", p === prox && !late ? "next" : "", p.tipo === "opc" ? "opc" : ""].join(" ");
-      const btn = p.tipo === "ref" ? `<div class="cafebt"><button class="mini ${p.pulou?"skipsel":""}" data-ref="cafe" data-v="nao">Não comi</button><button class="chk ${p.feito && !p.pulou?"on":""}" data-ref="cafe" data-v="sim" aria-label="comi o café da manhã">✓</button></div>`
-        : `<button class="chk ${p.feito?"on":""}" data-med="${p.id}" aria-label="${esc(p.nome)}">✓</button>`;
-      return `<div class="med tl ${cls}"><span class="hr">${p.hora}</span><div class="tx"><b>${esc(p.nome)}</b><span>${esc(p.detalhe)}${late ? " · <em>atrasado</em>" : ""}</span></div>${btn}</div>`;
-    }).join("");
-    if (cafeV === "nao" && ag.some(m => m.id === "prednisona") && !(e.meds||{}).prednisona) h += `<div class="note warn">A receita diz para tomar a prednisona <b>depois do café da manhã</b>. Coma algo antes de tomar.</div>`;
-    if (!c.prednisonaInicio) h += `<div class="note">Prednisona + pantoprazol ainda não começaram. <button class="mini acc" data-iniciar="prednisona">Comecei hoje</button></div>`;
-    if (!c.vagifemInicio) h += `<div class="note">Vagifem (dose de ataque, 14 dias) ainda não começou. <button class="mini acc" data-iniciar="vagifem">Comecei hoje</button></div>`;
-    else if (diasEntre(c.vagifemInicio, iso) + 1 > 14) h += `<div class="note warn">${esc(S.cursos.find(x => x.id === "vagifem").depois)}</div>`;
-    if (!c.ozivyInicio) h += `<div class="note warn">Ozivy: ${esc(S.semanais[0].aviso)} No dia da 1ª aplicação, toque em <button class="mini acc" data-iniciar="ozivy">Apliquei hoje</button> e ele aparece toda semana no mesmo dia.</div>`;
-    else if (!ag.some(m => m.id === "ozivy")){ const n = diasEntre(c.ozivyInicio, iso); const falta = 7 - (((n % 7) + 7) % 7); h += `<div class="note">Próxima aplicação do Ozivy: ${SEM[(dataDe(iso).getDay() + falta) % 7]} (${brData(hojeISO(dOff + falta))}).</div>` }
-    if (dc.length >= cic.limiteDias && !usouCic) h += `<div class="note warn">Você já usou a ciclobenzaprina em ${dc.length} dias, o limite da receita. Fale com a neuro antes de continuar.</div>`;
-    if (S.avisoPrednisolona && !cfg().prednisolonaOk && (!c.prednisonaInicio || doseCurso(S.cursos.find(x => x.id === "prednisona"), iso))) h += `<div class="note warn">⚠️ ${esc(S.avisoPrednisolona)} <button class="mini" data-predok="1">Já confirmei</button></div>`;
-    if (dOff === 0){ const al = alertasEstoque(); if (al.length) h += `<div class="note warn">📦 Comprar/renovar: ${al.map(esc).join(" · ")}</div>` }
-    const dv = diasEntre(hojeISO(), S.validadeReceitas);
-    if (dOff === 0 && dv >= 0 && dv <= 10) h += `<div class="note warn">As receitas de 31/10 vencem em ${brData(S.validadeReceitas)} (${dv} dia${dv===1?"":"s"}). Peça as novas à neuro.</div>`;
-    h += `</section>`;
+    return ps.sort((x,y) => toMin(x.hora) - toMin(y.hora) || x.ordem - y.ordem);
+  }
+  const agoraMin = () => new Date().getHours()*60 + new Date().getMinutes();
 
-    // alimentação
-    const ref = e.refeicoes || {};
-    const pulou = S.refeicoes.filter(r => ref[r.id] === "nao").length;
-    h += `<section class="sec"><h3>Alimentação <b>${S.refeicoes.filter(r => ref[r.id] === true).length}/${S.refeicoes.length} refeições${pulou ? ` · ${pulou} pulada${pulou>1?"s":""}` : ""}</b></h3>
-      <div class="meals">${S.refeicoes.map(r => `<div class="meal2 ${ref[r.id]===true?"on":ref[r.id]==="nao"?"no":""}"><b>${esc(r.nome)}</b><div class="mb">
-        <button data-ref="${r.id}" data-v="sim" class="${ref[r.id]===true?"sel":""}">✓ Comi</button><button data-ref="${r.id}" data-v="nao" class="${ref[r.id]==="nao"?"sel":""}">Não comi</button></div></div>`).join("")}
-      <button class="meal ${e.whey?"on":""}" data-whey="1" style="grid-column:1/-1">Proteína / whey do dia<i>✓</i></button></div>
-      <div class="cnts">${contador("agua","Água",e.agua,0.5,"L")}${contador("cafeina","Café / cafeína",e.cafeina,1,"xíc.")}</div>
+  function avisosHoje(){
+    if (dOff !== 0) return [];
+    const iso = hojeISO(), c = cfg(), ok = store.get("avisosOk", {}), out = [];
+    const pred = S.cursos.find(x => x.id === "prednisona");
+    if (S.avisoPrednisolona && !c.prednisolonaOk && pred && (!c.prednisonaInicio || doseCurso(pred, iso))) out.push({ k: "predl", txt: S.avisoPrednisolona, acao: `<button class="mini" data-predok="1">Já confirmei</button>` });
+    alertasEstoque().forEach(a => out.push({ k: "est:" + a.split(":")[0], txt: "📦 Comprar: " + a }));
+    const dv = diasEntre(iso, S.validadeReceitas);
+    if (dv >= 0 && dv <= 10) out.push({ k: "rec", txt: `As receitas vencem em ${brData(S.validadeReceitas)} (${dv} dia${dv===1?"":"s"}). Peça as novas à neuro.` });
+    const cic = S.noiteSeDor[0]; if (cic && diasCiclo().length >= cic.limiteDias) out.push({ k: "cic", txt: `Ciclobenzaprina: você já usou em ${diasCiclo().length} dias, o limite da receita. Fale com a neuro antes de continuar.` });
+    const vg = S.cursos.find(x => x.id === "vagifem"); if (vg && c.vagifemInicio && diasEntre(c.vagifemInicio, iso) + 1 > totalDias(vg) && diasEntre(c.vagifemInicio, iso) + 1 <= totalDias(vg) + 7) out.push({ k: "vag", txt: vg.depois });
+    return out.filter(a => ok[a.k] !== iso);
+  }
+  const avisosHTML = () => { const av = avisosHoje(); return av.length ? `<section class="sec avisos"><h3>Atenção</h3>${av.map(a => `<div class="av"><span>${esc(a.txt)}</span>${a.acao || ""}<button class="x" data-avok="${esc(a.k)}" aria-label="dispensar por hoje">✕</button></div>`).join("")}</section>` : "" };
+
+  let maisAberto = false;
+  function renderPainel(){
+    const iso = hojeISO(dOff), e = entrada(iso);
+    const ps = passosDia(iso, false), obrig = ps.filter(p => p.tipo !== "opc"), now = agoraMin();
+    const meds = ps.filter(p => p.tipo === "med"), medsOk = meds.filter(p => p.feito).length;
+    const comidas = S.refeicoes.filter(r => (e.refeicoes||{})[r.id] === true).length;
+    const agua = e.agua || 0, meta = DT ? DT.aguaMeta : 2;
+    const cardio = e.cardio === "Sim" || treinouEm(iso, ["C"]).length, musc = e.treino === "Sim" || treinouEm(iso, ["A","S","B"]).length;
+    let h = `<section class="dayhead slim">${dnavHTML(iso)}<div class="mus" style="text-align:center;margin-top:4px">Tudo salva sozinho. <b id="salvo" style="color:var(--ok)"></b></div></section>`;
+    h += avisosHTML();
+    // agora
+    if (dOff === 0){
+      const pend = obrig.filter(p => !p.feito), prox = pend[0], depois = pend[1];
+      if (prox){
+        const late = toMin(prox.hora) + 30 < now;
+        const acts = prox.tipo === "med" ? `<button class="big ok" data-med="${prox.id}">✓ Tomei</button>`
+          : `<button class="big ok" data-ref="${prox.id}" data-v="sim">✓ Comi</button><button class="big ghost2" data-ref="${prox.id}" data-v="nao">Não comi</button>${DT ? `<button class="big ghost2" data-irpara="dieta">Cardápio</button>` : ""}`;
+        h += `<section class="agora ${late ? "late" : ""}"><div class="k">${late ? "Atrasado" : toMin(prox.hora) <= now + 30 ? "Agora" : "Próximo"} · ${prox.hora}</div><h2>${esc(prox.nome)}</h2><div class="mus">${esc(prox.detalhe)}</div>
+          <div class="acts2">${acts}</div>${depois ? `<div class="depois">Depois: <b>${esc(depois.nome.split(" · ")[0])}</b> às ${depois.hora}</div>` : ""}</section>`;
+      } else h += `<section class="agora done"><div class="k">Tudo em dia</div><h2>✓ Remédios do dia marcados</h2></section>`;
+    }
+    // indicadores
+    const tile = (k, lbl, val, pct, extra) => `<button class="tile" data-irpara="${k}"><span class="l">${lbl}</span><span class="v">${val}</span><span class="pb"><i style="width:${Math.min(100, pct)}%"></i></span>${extra || ""}</button>`;
+    h += `<section class="tiles">
+      ${tile("remedios", "Remédios", `${medsOk}<small>/${meds.length}</small>`, meds.length ? medsOk/meds.length*100 : 100)}
+      ${tile("dieta", "Refeições", `${comidas}<small>/4</small>`, comidas/4*100)}
+      <div class="tile"><span class="l">Água</span><span class="v">${fmtN(agua)}<small>/${fmtN(meta)} L</small></span><span class="pb blue"><i style="width:${Math.min(100, agua/meta*100)}%"></i></span><button class="mini acc" data-aguaq="0.25" style="margin-top:8px">+ 250 ml</button></div>
+      ${tile("treino", "Movimento", cardio || musc ? [cardio ? "Cardio" : "", musc ? "Musc." : ""].filter(Boolean).join(" + ") : "<small>ainda não</small>", cardio || musc ? 100 : 0)}
     </section>`;
-
-    // SOS
-    h += `<section class="sec"><h3>Crise de dor · remédios SOS</h3>
-      <div class="gold"><b>Regra de ouro:</b> ${esc(S.regraOuro)}</div>
-      ${dOff < 0 ? `<div class="note">Registrando para ${brData(iso)}. Escolha o horário: <input type="time" class="time-in" id="sosHora" value="12:00"></div>` : ""}
-      ${S.sos.filter(tenho).map(m => sosBloco(m, iso)).join("")}
-      ${S.sos.filter(m => !tenho(m)).map(m => `<div class="note">Você não tem ${esc(m.nome)} em casa. Se comprar, ative em Remédios → Crise de dor.</div>`).join("")}
-    </section>`;
-
-    // movimento
-    const tr = treinouEm(iso, ["A","S","B"]), ca = treinouEm(iso, ["C"]);
-    h += `<section class="sec"><h3>Movimento</h3>
-      ${opcoes("cardio", "Fez cardio leve?" + (ca.length ? " (registrado no Treino)" : ""), e.cardio ?? (ca.length ? "Sim" : undefined), ["Sim","Não"])}
-      <div class="dq"><div class="dl"><b>Minutos de cardio</b></div><div class="load" style="margin:0">
-        <button class="stp" data-min="-5">−</button><input id="cardioMin" class="num-in" inputmode="numeric" value="${e.cardioMin ?? (ca.length ? parseInt(ca[0].duracao)||"" : "")}" aria-label="minutos de cardio"><button class="stp" data-min="5">+</button><label>min</label></div></div>
-      ${opcoes("treino", "Fez musculação?" + (tr.length ? " (registrado no Treino)" : ""), e.treino ?? (tr.length ? "Sim" : undefined), ["Sim","Não"])}
-    </section>`;
-
-    // sintomas
-    h += `<section class="sec"><h3>Como foi o dia</h3>
+    if (dOff === 0) h += criseHTML();
+    // check-in
+    h += `<section class="sec"><h3>Como estou hoje</h3>
       ${escala("cabeca", "Dor de cabeça", e.cabeca, ["nenhuma","insuportável"])}
+      ${opcoes("tontura", "Tontura", e.tontura, ["Não","Leve","Forte"])}
+      ${escala("energia", "Energia", e.energia, ["sem força","ótima"])}
+      <button class="mini" data-mais="1" style="width:100%;margin-top:10px">${maisAberto ? "Menos detalhes ▴" : "Mais detalhes: crise, olho, sono, estresse, café, movimento, pressão ▾"}</button>
+      ${maisAberto ? `
       ${opcoes("crise", "Teve crise de enxaqueca?", e.crise, ["Não","Sim"])}
       ${opcoes("olho", "Tremor no olho?", e.olho, ["Não","Sim"])}
-      ${opcoes("tontura", "Tontura", e.tontura, ["Não","Leve","Forte"])}
-      ${escala("energia", "Energia / disposição", e.energia, ["sem força","ótima"])}
       ${escala("estresse", "Estresse", e.estresse, ["tranquila","muito"])}
       <div class="dq"><div class="dl"><b>Sono da noite passada</b></div><div class="load" style="margin:0">
         <button class="stp" data-sono="-0.5">−</button><input id="sono" class="num-in" inputmode="decimal" value="${e.sono ?? ""}" placeholder="7" aria-label="horas de sono"><button class="stp" data-sono="0.5">+</button><label>horas</label></div></div>
+      <div class="cnts" style="grid-template-columns:1fr">${contador("cafeina","Café / cafeína",e.cafeina,1,"xíc.")}</div>
+      ${opcoes("cardio", "Fez cardio leve?", e.cardio ?? (treinouEm(iso, ["C"]).length ? "Sim" : undefined), ["Sim","Não"])}
+      <div class="dq"><div class="dl"><b>Minutos de cardio</b></div><div class="load" style="margin:0">
+        <button class="stp" data-min="-5">−</button><input id="cardioMin" class="num-in" inputmode="numeric" value="${e.cardioMin ?? ""}" aria-label="minutos de cardio"><button class="stp" data-min="5">+</button><label>min</label></div></div>
+      ${opcoes("treino", "Fez musculação?", e.treino ?? (treinouEm(iso, ["A","S","B"]).length ? "Sim" : undefined), ["Sim","Não"])}
       <div class="dq"><div class="dl"><b>Pressão</b><span class="mus">opcional</span></div>
         <div class="load" style="margin:0"><input id="pas" class="num-in" inputmode="numeric" placeholder="12" value="${esc(e.pas ?? "")}" aria-label="pressão máxima"><label>por</label><input id="pad" class="num-in" inputmode="numeric" placeholder="8" value="${esc(e.pad ?? "")}" aria-label="pressão mínima"></div></div>
-      <div class="dq"><div class="dl"><b>Observação</b></div><textarea id="obs" rows="3" placeholder="Ex.: dor começou às 15h depois de muita tela, menstruou, dormi mal…">${esc(e.obs ?? "")}</textarea></div>
+      ` : ""}
+      <div class="dq"><div class="dl"><b>Observação</b></div><textarea id="obs" rows="2" placeholder="Ex.: dor começou às 15h depois de muita tela, dormi mal…">${esc(e.obs ?? "")}</textarea></div>
     </section>`;
     $("#main").innerHTML = h;
+  }
+
+  // ---- Remédios · do dia ----
+  function timelineHTML(iso){
+    const e = entrada(iso), c = cfg(), ps = passosDia(iso, false), ag = agenda(iso);
+    const obrig = ps.filter(p => p.tipo !== "opc"), now = agoraMin(), prox = dOff === 0 ? obrig.find(p => !p.feito) : null;
+    let h = `<section class="sec"><h3>Remédios do dia <b>${obrig.filter(p => p.feito).length}/${obrig.length}</b></h3>`;
+    h += ps.map(p => {
+      const late = dOff === 0 && !p.feito && p.tipo !== "opc" && toMin(p.hora) + 30 < now;
+      const cls = [p.feito ? "on" : "", late ? "late" : "", p === prox && !late ? "next" : "", p.tipo === "opc" ? "opc" : ""].join(" ");
+      const btn = p.tipo === "ref" ? `<div class="cafebt"><button class="mini ${p.pulou?"skipsel":""}" data-ref="${p.id}" data-v="nao">Não comi</button><button class="chk ${p.feito && !p.pulou?"on":""}" data-ref="${p.id}" data-v="sim" aria-label="comi">✓</button></div>`
+        : `<button class="chk ${p.feito?"on":""}" data-med="${p.id}" aria-label="${esc(p.nome)}">✓</button>`;
+      return `<div class="med tl ${cls}"><span class="hr">${p.hora}</span><div class="tx"><b>${esc(p.nome)}</b><span>${esc(p.detalhe)}${late ? " · <em>atrasado</em>" : ""}</span></div>${btn}</div>`;
+    }).join("");
+    const cafeV = (e.refeicoes||{}).cafe;
+    if (cafeV === "nao" && ag.some(m => m.id === "prednisona") && !(e.meds||{}).prednisona) h += `<div class="note warn">A receita diz para tomar a prednisona <b>depois do café da manhã</b>. Coma algo antes de tomar.</div>`;
+    h += `</section>`;
+    // ainda não começou
+    const pend = [];
+    if (!c.prednisonaInicio) pend.push(`<div class="rxs"><span><b>Prednisona + pantoprazol</b> · 12 dias</span><button class="mini acc" data-iniciar="prednisona">Comecei hoje</button></div>`);
+    if (!c.vagifemInicio) pend.push(`<div class="rxs"><span><b>Vagifem</b> · dose de ataque, 14 dias</span><button class="mini acc" data-iniciar="vagifem">Comecei hoje</button></div>`);
+    if (!c.ozivyInicio) pend.push(`<div class="rxs"><span><b>Ozivy</b> · ${esc(S.semanais[0]?.aviso || "")}</span><button class="mini acc" data-iniciar="ozivy">Apliquei hoje</button></div>`);
+    else if (!ag.some(m => m.id === "ozivy")){ const n = diasEntre(c.ozivyInicio, iso), falta = 7 - (((n % 7) + 7) % 7); pend.push(`<div class="rxs"><span><b>Ozivy</b> · próxima aplicação ${SEM[(dataDe(iso).getDay() + falta) % 7]} (${brData(hojeISO(dOff + falta))})</span></div>`) }
+    if (pend.length) h += `<section class="sec"><h3>${c.ozivyInicio && pend.length === 1 ? "Semanal" : "Para começar"}</h3>${pend.join("")}</section>`;
+    return h;
+  }
+  function sosViewHTML(iso){
+    return `<section class="sec"><h3>Remédios de crise</h3>
+      <div class="gold"><b>Regra de ouro:</b> ${esc(S.regraOuro)}</div>
+      ${dOff < 0 ? `<div class="note">Registrando para ${brData(iso)}. Horário: <input type="time" class="time-in" id="sosHora" value="12:00"></div>` : ""}
+      ${S.sos.filter(tenho).map(m => sosBloco(m, iso)).join("")}
+      ${S.sos.filter(m => !tenho(m)).map(m => `<div class="note">Você não tem ${esc(m.nome)} em casa. Se comprar, ative em Gerenciar.</div>`).join("")}
+    </section>`;
   }
 
   // ================= ESTOU COM CRISE =================
@@ -619,8 +754,14 @@
   }
 
   $("#main").addEventListener("click", e => {
-    if (secao !== "hoje") return;
+    if (secao !== "hoje" && secao !== "remedios") return;
+    const avk = e.target.closest("[data-avok]"); if (avk){ const ok = store.get("avisosOk", {}); ok[avk.dataset.avok] = hojeISO(); store.set("avisosOk", ok); render(); return }
+    const aq = e.target.closest("[data-aguaq]"); if (aq){ const iso0 = hojeISO(dOff); salvarDia(iso0, "agua", Math.round(((entrada(iso0).agua||0) + (+aq.dataset.aguaq))*100)/100); render(); return }
+    if (e.target.closest("[data-mais]")){ maisAberto = !maisAberto; render(); return }
     const iso = hojeISO(dOff);
+    const ir = e.target.closest("[data-irpara]");
+    if (ir){ secao = ir.dataset.irpara; store.set("secao", secao); render(); window.scrollTo({ top: 0 }); return }
+    if (e.target.closest("[data-creat]")){ salvarDia(iso, "creatina", !entrada(iso).creatina); renderHoje(); return }
     const cb = e.target.closest("[data-crise]");
     if (cb){ crise = cb.dataset.crise === "1" ? { passo: 1, intens: null, tipo: null } : null; renderHoje(); if (crise) window.scrollTo({ top: 0 }); return }
     const ct = e.target.closest("[data-ctipo]");
@@ -667,7 +808,7 @@
     if (ds){ duploToque(ds, "Apagar?", () => { const log = getSOS(); log.splice(+ds.dataset.delsos, 1); store.set("sos", log); renderHoje() }); return }
   });
   $("#main").addEventListener("input", e => {
-    if (secao !== "hoje") return;
+    if (secao !== "hoje" && secao !== "remedios") return;
     const iso = hojeISO(dOff), r = e.target;
     if (r.id === "cint" && crise){ crise.intens = +r.value; r.classList.remove("vazio"); $("#v-cint").textContent = r.value; const nb = document.querySelector("[data-cnext]"); if (nb && crise.tipo){ nb.disabled = false; nb.style.opacity = 1 } return }
     if (r.type === "range"){ r.classList.remove("vazio"); $("#v-" + r.dataset.campo).textContent = r.value; salvarDia(iso, r.dataset.campo, +r.value) }
@@ -676,8 +817,121 @@
     if (r.id === "sono") salvarDia(iso, "sono", parseFloat(String(r.value).replace(",", ".")) || 0);
   });
 
+  // ================= DIETA =================
+  function dietaDe(iso, rid){ return (entrada(iso).dieta || {})[rid] || { op: 0, sel: {} } }
+  function salvarDieta(iso, rid, v){ salvarSub(iso, "dieta", rid, v) }
+  function proximaRef(){ const now = agoraMin(); const r = DT.refeicoes.find(r => toMin(r.hora) + 90 > now); return r ? r.id : DT.refeicoes[DT.refeicoes.length-1].id }
+  const parteNome = t => t.split(" (")[0].split(" — ")[0];
+  const parteQtd = t => { const m = t.match(/\(([^)]+)\)/), extra = t.includes(" — ") ? t.split(" — ")[1].split(" (")[0] + " · " : ""; return extra + (m ? m[1] : "") };
+  function resumoOpcao(o){ return o.grupos.filter(g => !g.livre).map(g => g.escolhas ? g.nome.toLowerCase() : parteNome(g.nome).replace(/^(\d+\s)/, "").toLowerCase()).join(" · ") }
+  function escolhidoTxt(r, d){
+    const op = r.opcoes[Math.min(d.op || 0, r.opcoes.length - 1)];
+    const itens = op.grupos.map((g,gi) => g.escolhas && d.sel && d.sel[gi] != null ? parteNome(g.escolhas[d.sel[gi]]) : null).filter(Boolean);
+    return (r.opcoes.length > 1 ? op.nome + (itens.length ? " · " : "") : "") + itens.join(", ");
+  }
+  function renderDieta(){
+    if (!DT){ $("#main").innerHTML = `<section class="sec"><h3>Falta atualizar o treino.js</h3><div class="mus">A dieta está no treino.js novo.</div></section>`; return }
+    const iso = hojeISO(dOff), e = entrada(iso), ref = e.refeicoes || {};
+    const comidas = S.refeicoes.filter(r => ref[r.id] === true).length, agua = e.agua || 0;
+    let h = `<section class="dayhead slim">${dnavHTML(iso)}</section>`;
+    h += `<section class="tiles">
+      <div class="tile"><span class="l">Refeições</span><span class="v">${comidas}<small>/4</small></span><span class="pb"><i style="width:${comidas/4*100}%"></i></span></div>
+      <button class="tile ${e.creatina?"done":""}" data-sup="creatina"><span class="l">Creatina 5 g</span><span class="v">${e.creatina ? "✓ tomei" : "<small>toque ao tomar</small>"}</span><span class="pb"><i style="width:${e.creatina?100:0}%"></i></span></button>
+      <div class="tile wide"><span class="l">Água · meta ${fmtN(DT.aguaMeta)} L</span><span class="v">${fmtN(agua)}<small> L</small></span><span class="pb blue"><i style="width:${Math.min(100, agua/DT.aguaMeta*100)}%"></i></span>
+        <span class="aq">${[0.25,0.5,1].map(q => `<button class="mini acc" data-agua="${q}">+ ${q === 0.25 ? "250 ml" : q === 0.5 ? "500 ml" : "1 L"}</button>`).join("")}<button class="mini" data-agua="-0.25" aria-label="tirar 250 ml">−</button></span></div>
+    </section>`;
+    const prox = dOff === 0 ? proximaRef() : null;
+    if (!dAbertas[iso]) dAbertas[iso] = new Set(dOff === 0 ? [prox] : []);
+    DT.refeicoes.forEach(r => {
+      const st = ref[r.id], d = dietaDe(iso, r.id), opi = Math.min(d.op || 0, r.opcoes.length - 1), op = r.opcoes[opi];
+      const aberto = dAbertas[iso].has(r.id);
+      const pill = st === true ? `<span class="pill ok">Comi</span>` : st === "nao" ? `<span class="pill no">Não comi</span>` : r.id === prox ? `<span class="pill nx">Próxima</span>` : "";
+      const resumo = (d.escolhida || Object.keys(d.sel||{}).length) ? escolhidoTxt(r, d) : r.regra;
+      h += `<section class="ref ${aberto ? "open" : ""} ${st===true?"ok":st==="nao"?"no":""}" data-rid="${r.id}">
+        <button class="refh" data-rtog="${r.id}"><span class="hr">${r.hora}</span><span class="t"><b>${esc(r.nome)}</b><small>${esc(resumo)}</small></span>${pill}<i>${aberto ? "▴" : "▾"}</i></button>`;
+      if (aberto){
+        if (r.opcoes.length > 1) h += `<div class="optcards">${r.opcoes.map((o,k) => `<button class="optcard ${opi===k && (d.escolhida || Object.keys(d.sel||{}).length) ? "on" : ""}" data-dop="${r.id}" data-k="${k}"><b>${esc(o.nome)}</b><span>${esc(resumoOpcao(o))}</span></button>`).join("")}</div>`;
+        const mostrar = r.opcoes.length === 1 || d.escolhida || Object.keys(d.sel||{}).length;
+        if (mostrar){
+          const fixos = op.grupos.filter(g => g.fixo);
+          if (fixos.length) h += `<div class="incl"><span class="gl">Vai no prato</span>${fixos.map(g => `<span class="ic">✓ ${esc(parteNome(g.nome))}${parteQtd(g.nome) ? ` <small>${esc(parteQtd(g.nome))}</small>` : ""}</span>`).join("")}</div>`;
+          const livres = op.grupos.map((g,gi) => ({ g, gi })).filter(x => x.g.livre);
+          if (livres.length) h += `<div class="grp2"><span class="gl">À vontade <small>toque no que comeu</small></span><div class="chips2">${livres.map(({g,gi}) => { const on = !!(d.sel||{})[gi]; return `<button class="chip2 ${on?"on":""}" data-dsel="${r.id}" data-g="${gi}" data-v="1">${on ? "✓ " : ""}${esc(g.nome)}</button>` }).join("")}</div></div>`;
+          op.grupos.forEach((g,gi) => {
+            if (g.fixo || g.livre) return;
+            const v = (d.sel||{})[gi];
+            h += `<div class="grp2"><span class="gl">${esc(g.nome)} <small>escolha 1</small></span><div class="chips2">${g.escolhas.map((c,ci) => `<button class="chip2 ${v===ci?"on":""}" data-dsel="${r.id}" data-g="${gi}" data-v="${ci}">${esc(parteNome(c))}</button>`).join("")}</div>
+              ${v != null && g.escolhas[v] ? `<div class="qtd">${esc(parteNome(g.escolhas[v]))}: <b>${esc(parteQtd(g.escolhas[v]) || "1 porção")}</b></div>` : ""}</div>`;
+          });
+          if (op.obs) h += `<div class="note">${esc(op.obs)}</div>`;
+        } else h += `<div class="mus" style="padding:4px 2px 2px">Escolha uma opção acima para montar o prato.</div>`;
+        h += `<div class="acts2"><button class="big ${st===true?"ok":"ghost2"}" data-ref="${r.id}" data-v="sim">✓ Comi</button><button class="big ${st==="nao"?"warn":"ghost2"}" data-ref="${r.id}" data-v="nao">Não comi</button></div>`;
+      }
+      h += `</section>`;
+    });
+    h += `<section class="sec"><h3>Intestino <b>${periodo(7).reduce((a,d) => a + (getDiario()[d]?.evac || 0), 0)} nos últimos 7 dias</b></h3>
+      <div class="cnts" style="grid-template-columns:1fr">${contador("evac","Evacuações hoje",e.evac,1,"")}</div>
+      ${opcoes("fezes", "Consistência", e.fezes, ["Normal","Ressecado","Mole"])}</section>`;
+    const md = store.get("medidas", []), campos = [...DT.medidas, "Peso"];
+    h += `<details class="how" ${dietaMais.has("medidas") ? "open" : ""} data-dm="medidas"><summary>📏 Medidas${md[0] ? ` · última em ${brData(md[0].data)}` : ""}</summary>
+      <div class="mgrid">${campos.map(c => `<label>${esc(c)}<input class="num-in" inputmode="decimal" data-med-in="${esc(c)}" placeholder="${c === "Peso" ? "kg" : "cm"}"></label>`).join("")}</div>
+      <button class="btn" id="salvarMedidas">Salvar medidas de hoje</button>
+      ${md.length ? `<div class="tw"><table><thead><tr><th>Dia</th>${campos.map(c => `<th>${esc(c.split(" ")[0])}</th>`).join("")}<th></th></tr></thead><tbody>${md.map((m,k) => `<tr><td>${brData(m.data)}</td>${campos.map(c => `<td>${esc(m.v[c] || "")}</td>`).join("")}<td><button class="del" data-delmed="${k}">✕</button></td></tr>`).join("")}</tbody></table></div>` : ""}
+    </details>
+    <details class="how" ${dietaMais.has("nota") ? "open" : ""} data-dm="nota"><summary>🗒️ Para a próxima consulta</summary>
+      <textarea id="notaDieta" rows="3" placeholder="Facilidades, dificuldades, alimento que quer incluir…" style="width:100%;margin-top:8px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--txt);padding:10px;font:inherit;font-size:15px">${esc(e.notaDieta ?? "")}</textarea>
+      <div class="note">${esc(DT.proximaConsulta)}</div></details>
+    <details class="how"><summary>🍵 Chás liberados</summary><ul><li>${esc(DT.chas)}</li></ul></details>
+    <details class="how"><summary>📝 Observações da nutricionista</summary><ul>${DT.observacoes.map(o => `<li>${esc(o)}</li>`).join("")}</ul></details>
+    <details class="how"><summary>🍳 Receitas</summary><ul>${DT.receitas.map(x => `<li><b style="color:var(--txt)">${esc(x.nome)}:</b> ${esc(x.texto)}</li>`).join("")}</ul></details>`;
+    $("#main").innerHTML = h;
+  }
+  const dietaMais = new Set();
+  document.addEventListener("toggle", e => { const d = e.target; if (d && d.dataset && d.dataset.dm){ if (d.open) dietaMais.add(d.dataset.dm); else dietaMais.delete(d.dataset.dm) } }, true);
+  const dAbertas = {};
+
+  const OPCOES_CAFE_REF = (typeof OPCOES_CAFE !== "undefined") ? OPCOES_CAFE : null;
+  $("#main").addEventListener("click", e => {
+    if (secao !== "dieta") return;
+    const iso = hojeISO(dOff);
+    const nav = e.target.closest("[data-dnav]"); if (nav){ dOff = Math.min(0, dOff + (+nav.dataset.dnav)); renderDieta(); return }
+    const tg = e.target.closest("[data-rtog]"); if (tg){ const set = dAbertas[iso] || (dAbertas[iso] = new Set()); if (set.has(tg.dataset.rtog)) set.delete(tg.dataset.rtog); else set.add(tg.dataset.rtog); renderDieta(); return }
+    const ag = e.target.closest("[data-agua]"); if (ag){ salvarDia(iso, "agua", Math.max(0, Math.round(((entrada(iso).agua||0) + (+ag.dataset.agua))*100)/100)); renderDieta(); return }
+    const sp = e.target.closest("[data-sup]"); if (sp){ salvarDia(iso, sp.dataset.sup, !entrada(iso)[sp.dataset.sup]); renderDieta(); return }
+    const op = e.target.closest("[data-dop]");
+    if (op){ const d = dietaDe(iso, op.dataset.dop), k = +op.dataset.k; salvarDieta(iso, op.dataset.dop, { op: k, sel: (d.op||0) === k ? (d.sel||{}) : {}, escolhida: true }); renderDieta(); return }
+    const sl = e.target.closest("[data-dsel]");
+    if (sl){ const rid = sl.dataset.dsel, d = dietaDe(iso, rid), sel = { ...(d.sel||{}) }, g = sl.dataset.g, v = +sl.dataset.v;
+      if (sel[g] === v) delete sel[g]; else sel[g] = v;
+      salvarDieta(iso, rid, { op: d.op || 0, sel, escolhida: true });
+      if ((entrada(iso).refeicoes||{})[rid] == null && Object.keys(sel).length) salvarSub(iso, "refeicoes", rid, true);
+      renderDieta(); return }
+    const rf = e.target.closest("[data-ref]");
+    if (rf){ const atual = (entrada(iso).refeicoes||{})[rf.dataset.ref], novo = rf.dataset.v === "nao" ? "nao" : true;
+      salvarSub(iso, "refeicoes", rf.dataset.ref, atual === novo ? null : novo); renderDieta(); return }
+    const cn = e.target.closest("[data-cnt]");
+    if (cn){ const k = cn.dataset.cnt; salvarDia(iso, k, Math.max(0, (entrada(iso)[k]||0) + (+cn.dataset.p))); renderDieta(); return }
+    const fz = e.target.closest("[data-campo][data-v]");
+    if (fz){ const cur = entrada(iso)[fz.dataset.campo]; salvarDia(iso, fz.dataset.campo, cur === fz.dataset.v ? null : fz.dataset.v); renderDieta(); return }
+    if (e.target.id === "salvarMedidas"){
+      const v = {}; document.querySelectorAll("[data-med-in]").forEach(i => { if (i.value.trim()) v[i.dataset.medIn] = i.value.trim().replace(".", ",") });
+      if (!Object.keys(v).length){ toast("Preencha pelo menos uma medida"); return }
+      const md = store.get("medidas", []).filter(m => m.data !== hojeISO()); md.unshift({ data: hojeISO(), v }); store.set("medidas", md.slice(0, 60)); toast("✓ Medidas salvas"); renderDieta(); return }
+    const dm = e.target.closest("[data-delmed]");
+    if (dm){ duploToque(dm, "Apagar?", () => { const md = store.get("medidas", []); md.splice(+dm.dataset.delmed, 1); store.set("medidas", md); renderDieta() }); return }
+  });
+  $("#main").addEventListener("input", e => { if (secao === "dieta" && e.target.id === "notaDieta") salvarDia(hojeISO(dOff), "notaDieta", e.target.value) });
+
   // ================= REMÉDIOS =================
   function renderRemedios(){
+    const iso = hojeISO(dOff);
+    if (rsub === "gerenciar"){ renderGerenciar(); return }
+    let h = `<section class="dayhead slim">${dnavHTML(iso)}</section>`;
+    if (rsub === "sos"){ if (dOff === 0) h += criseHTML(); h += sosViewHTML(iso) }
+    else { h += avisosHTML() + timelineHTML(iso) }
+    $("#main").innerHTML = h;
+  }
+  function renderGerenciar(){
     const c = cfg();
     const dt = (k, label) => `<div class="cfg">${label} <input type="date" class="time-in" data-cfg="${k}" value="${esc(c[k] || "")}">${c[k] ? `<button class="mini" data-cfglimpa="${k}">limpar</button>` : ""}</div>`;
     let h = `<section class="dayhead"><div class="k">Receitas de 31/10</div><h2>Seus remédios</h2>
@@ -764,6 +1018,11 @@
       crises: dias.filter(d => all[d]?.crise === "Sim").length, olho: dias.filter(d => all[d]?.olho === "Sim").length,
       tont: dias.filter(d => all[d]?.tontura && all[d].tontura !== "Não").length, energia: media(vals("energia")), estresse: media(vals("estresse")), sono: media(vals("sono")),
       agua: media(vals("agua")), cafeina: media(vals("cafeina")), porSOS, tripDias30, sosDias30, ades, ref: ref.length ? fmtN(ref.reduce((a,b)=>a+b,0)/ref.length) : "–",
+      creat: dias.filter(d => all[d]?.creatina).length,
+      evac7: periodo(7).reduce((a,d) => a + (all[d]?.evac || 0), 0),
+      fezes: ["Normal","Ressecado","Mole"].map(k => ({ k, n: dias.filter(d => all[d]?.fezes === k).length })),
+      plano: dias.reduce((a,d) => a + Object.values(all[d]?.dieta || {}).filter(x => x && (x.escolhida || (x.sel && Object.keys(x.sel).length))).length, 0),
+      medidas: store.get("medidas", []),
       puladas, refCompletas: ref.filter(v => v === S.refeicoes.length).length, whey: dias.filter(d => all[d]?.whey).length, trein, cardioDias, cardioMin,
       cicDias: diasCiclo().length, crisesReg: (() => { const cs = getCrises().filter(c => isoDe(new Date(c.ts)) >= dias[0]);
         return S.sos.filter(m => m.id !== "passiflora").map(m => { const x = cs.filter(c => c.remedio === m.id), r = x.filter(c => c.resposta);
@@ -791,7 +1050,10 @@
         <div><b>${s.ref}</b><span>refeições por dia (de 4)</span></div>
         <div><b>${s.puladas.reduce((a,x) => a + x.n, 0)}</b><span>refeições puladas${s.puladas.some(x => x.n) ? " (" + s.puladas.filter(x => x.n).map(x => x.nome.split(" ")[0].toLowerCase() + " " + x.n).join(", ") + ")" : ""}</span></div>
         <div><b>${s.whey}</b><span>dias com proteína/whey</span></div>
-        <div><b>${s.agua}</b><span>litros de água (média)</span></div>
+        <div><b>${s.agua}</b><span>litros de água (média${DT ? ", meta " + fmtN(DT.aguaMeta) : ""})</span></div>
+        <div><b>${s.creat}</b><span>dias com creatina</span></div>
+        <div><b>${s.evac7}</b><span>evacuações nos últimos 7 dias</span></div>
+        <div><b>${s.plano}</b><span>refeições com opção do cardápio marcada</span></div>
         <div><b>${s.cardioDias} + ${s.trein}</b><span>dias de cardio (${s.cardioMin} min) + musculação</span></div>
         <div><b>${s.cafeina}</b><span>xícaras de café (média)</span></div></div></section>`;
     const linhas = periodo(rN).reverse().filter(d => all[d] || getSOS().some(x => isoDe(new Date(x.ts)) === d)).map(d => { const e = all[d] || {};
@@ -814,6 +1076,10 @@
     t += `• Ciclobenzaprina: ${s.cicDias} de 10 dias\n• Tremor no olho: ${s.olho} dia(s)\n• Tontura: ${s.tont} dia(s)\n• Sono médio: ${s.sono} h · Estresse médio: ${s.estresse}/10 · Energia média: ${s.energia}/10\n• Café/cafeína: média ${s.cafeina} xícara(s)/dia\n`;
     t += `\nREMÉDIOS TOMADOS\n`; Object.entries(s.ades).forEach(([k,v]) => t += `• ${k}: ${v.t}/${v.p}\n`);
     t += `\nENDÓCRINO\n• Refeições: média ${s.ref} de 4 por dia (${s.refCompletas} dia(s) com as 4)\n${s.puladas.some(x => x.n) ? "• Refeições puladas: " + s.puladas.filter(x => x.n).map(x => x.nome + " " + x.n + "x").join(", ") + "\n" : ""}• Proteína/whey: ${s.whey} dia(s)\n• Água: média ${s.agua} L/dia\n• Cardio: ${s.cardioDias} dia(s), ${s.cardioMin} min no total\n• Musculação: ${s.trein} dia(s)\n`;
+    if (DT){ t += `\nNUTRICIONISTA\n• Água: média ${s.agua} L/dia (meta ${fmtN(DT.aguaMeta)} L)\n• Creatina: ${s.creat} de ${s.reg} dia(s) registrados\n• Refeições com opção do cardápio marcada: ${s.plano}\n• Evacuações nos últimos 7 dias: ${s.evac7}${s.fezes.some(x => x.n) ? " · consistência: " + s.fezes.filter(x => x.n).map(x => x.k.toLowerCase() + " " + x.n + "x").join(", ") : ""}\n`;
+      const ult = s.medidas[0]; if (ult) t += `• Medidas de ${brData(ult.data)}: ${Object.entries(ult.v).filter(([,v]) => v).map(([k,v]) => k + " " + v + (k === "Peso" ? " kg" : " cm")).join(", ")}\n`;
+      const notas = periodo(s.n).map(d => getDiario()[d]?.notaDieta ? `${brData(d)}: ${getDiario()[d].notaDieta}` : "").filter(Boolean);
+      if (notas.length) t += `• Anotações sobre o plano:\n${notas.join("\n")}\n`; }
     if (s.pressao.length) t += `• Pressão: ${s.pressao.join("; ")}\n`;
     if (s.obs.length) t += `\nOBSERVAÇÕES\n${s.obs.join("\n")}\n`;
     return t;

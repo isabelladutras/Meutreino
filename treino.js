@@ -58,7 +58,7 @@ const SAUDE = {
     nomeCaixa: { polivit: "Lavitan A-Z Mulher", prednisona: "Prednisolona 20 mg (EMS)", passiflora: "Sintocalmy 300 mg" },
     unidade: { vagifem: "aplicações", ozivy: "aplicações" }
   },
-  avisoPrednisolona: "A farmácia entregou PREDNISOLONA 20 mg, mas a receita é de PREDNISONA 20 mg. Confirme com a farmacêutica ou com a neuro se pode usar e se a dose é a mesma antes de começar.",
+  avisoPrednisolona: "Veio prednisolona 20 mg, e a receita é de prednisona 20 mg. Confirme com a farmácia ou com a neuro se pode usar na mesma dose.",
   validadeReceitas: "2026-11-30",
   regraOuro: "Nunca misturar triptanos no mesmo dia: depois de Zolmitriptana, nada de Naratriptana por 24 h (e vice-versa). Escolha apenas um triptano por crise.",
   refeicoes: [
@@ -314,3 +314,100 @@ COMO_FAZER["Elevação Lateral"] = [
   "Pense em levar o halter \"para longe\", não para cima; desça devagar.",
   "Erro comum: subir os ombros em direção às orelhas ou dar impulso com o corpo."
 ];
+
+// ============================================================
+//  DIETA — plano alimentar da nutricionista (05/11/2026)
+//  Cada refeição tem opções; cada opção tem grupos.
+//  grupo com "escolhas": escolha 1 · "fixo": item que vai sempre · "livre": à vontade
+// ============================================================
+const FRUTAS = [
+  "Uva Itália (7 unidades médias = 56 g)", "Pera (½ unidade grande = 90 g)", "Maçã Fuji (1 unidade pequena = 100 g)",
+  "Banana (1 unidade pequena = 50 g)", "Mamão (1 xícara de chá em pedaços = 120 g)", "Melão (1 fatia média = 150 g)",
+  "Morango (10 unidades médias = 150 g)", "Kiwi (1 unidade média = 75 g)", "Abacaxi (1 fatia média = 100 g)"
+];
+const OPCOES_CAFE = [
+  { nome: "Pão + proteína", grupos: [
+    { nome: "Carboidrato", escolhas: ["Pão francês (1 unidade = 50 g)", "Pão de forma (2 fatias = 50 g)", "Flocão de milho/cuscuz (10 colheres de sopa = 40 g)", "Torrada (3 unidades)", "Rap10 (1 unidade)", "Magic Toast (2 pacotinhos)", "Goma de tapioca (45 g)", "Farelo de aveia (40 g)"] },
+    { nome: "Proteína", escolhas: ["Atum ao natural (3 colheres de sopa = 60 g)", "Ovo (1 unidade + 2 claras = 100 g)", "Queijo minas frescal (2 fatias = 60 g)", "Queijo muçarela (1½ fatia = 35 g)", "Frango desfiado (3 colheres de sopa = 60 g)"] },
+    { nome: "Cremoso", escolhas: ["Requeijão light (1 colher de sopa = 20 g)", "Creme de ricota light (1 colher de sopa = 20 g)"] },
+    { nome: "Café preto", fixo: true },
+    { nome: "Fruta", escolhas: FRUTAS }
+  ] },
+  { nome: "Tapioca com ovos", grupos: [
+    { nome: "Goma de tapioca (40 g)", fixo: true },
+    { nome: "Ovo (2 unidades)", fixo: true },
+    { nome: "Doce de leite (1 colher de sopa rasa = 20 g)", fixo: true },
+    { nome: "Fruta", escolhas: FRUTAS }
+  ] },
+  { nome: "Iogurte com whey", grupos: [
+    { nome: "Iogurte desnatado (1 unidade)", fixo: true },
+    { nome: "Aveia em flocos (2 colheres de sopa cheias = 20 g)", fixo: true },
+    { nome: "Whey concentrado (1 medidor = 30 g)", fixo: true },
+    { nome: "Fruta", escolhas: FRUTAS }
+  ] },
+  { nome: "Shake proteico", grupos: [
+    { nome: "Whey concentrado (1 medidor = 30 g)", fixo: true },
+    { nome: "Leite desnatado (1 copo = 200 ml)", fixo: true },
+    { nome: "Fruta congelada", escolhas: FRUTAS }
+  ] },
+  { nome: "Mingau", grupos: [
+    { nome: "Leite desnatado (1 copo = 200 ml)", fixo: true },
+    { nome: "Aveia em flocos (4 colheres de sopa cheias = 40 g)", fixo: true },
+    { nome: "Whey concentrado (1 medidor = 30 g)", fixo: true },
+    { nome: "Fruta", escolhas: FRUTAS }
+  ] }
+];
+const ALMOCO = { nome: "Prato do almoço", grupos: [
+  { nome: "Folhas", livre: true },
+  { nome: "Legumes", livre: true },
+  { nome: "Carboidrato", escolhas: ["Arroz branco cozido (4 colheres de sopa cheias = 100 g)", "Batata inglesa assada em cubos (6 colheres de sopa cheias = 140 g)", "Batata inglesa cozida (11 colheres de sopa cheias = 245 g)", "Macarrão cozido (4 colheres de sopa cheias = 100 g)", "Flocão de milho/cuscuz (3,5 colheres de sopa cheias = 35 g)", "Batata-doce cozida (5 colheres de sopa cheias = 125 g)", "Batata-doce assada (4 colheres de sopa cheias = 100 g)", "Mandioquinha cozida (5 colheres de sopa cheias = 125 g)", "Abóbora cabotiá cozida (8 colheres de sopa cheias = 160 g)"] },
+  { nome: "Leguminosa", escolhas: ["Feijão carioca ou preto (5 colheres de sopa cheias = 85 g)", "Grão-de-bico cozido (2 colheres de sopa = 48 g)", "Lentilha cozida (2 colheres de sopa cheias = 54 g)"] },
+  { nome: "Proteína", escolhas: ["Carne bovina magra — alcatra, coxão duro/mole, filé mignon, peixinho ou patinho (3 colheres de sopa cheias = 105 g)", "Filé-mignon suíno (1 bife = 100 g)", "Lombo suíno (100 g)", "Tilápia (1 filé médio = 120 g)", "Atum ao natural (5 colheres de sopa cheias = 100 g)", "Filé de frango (1 filé pequeno = 100 g)", "Sobrecoxa de frango sem pele (1 unidade média = 120 g)"] }
+] };
+
+const DIETA = {
+  data: "2026-11-05",
+  profissional: "Nutricionista",
+  aguaMeta: 3,
+  suplementos: [ { id: "creatina", nome: "Creatina 5 g", detalhe: "Todos os dias, depois de alguma das refeições" } ],
+  proximaConsulta: "Agendar para 20 a 30 dias depois de 05/11 (entre 25/11 e 05/12).",
+  refeicoes: [
+    { id: "cafe", nome: "Café da manhã", hora: "07:30", regra: "Escolha 1 opção", opcoes: OPCOES_CAFE },
+    { id: "almoco", nome: "Almoço", hora: "12:30", regra: "1 alimento de cada grupo", opcoes: [ALMOCO] },
+    { id: "lanche", nome: "Lanche da tarde", hora: "16:00", regra: "Uma das opções do café da manhã", opcoes: OPCOES_CAFE },
+    { id: "jantar", nome: "Jantar", hora: "19:30", regra: "Escolha 1 opção", opcoes: [
+      { ...ALMOCO, nome: "Repetir o almoço" },
+      { nome: "Crepioca", grupos: [
+        { nome: "1 ovo (50 g)", fixo: true },
+        { nome: "Goma de tapioca (2 colheres de sopa rasas = 30 g)", fixo: true },
+        { nome: "Recheio", escolhas: ["Atum ao natural (2 colheres de sopa = 40 g)", "Frango desfiado (2 colheres de sopa = 45 g)"] },
+        { nome: "Salada", livre: true }
+      ] },
+      { nome: "Hambúrguer", grupos: [
+        { nome: "Pão", escolhas: ["1 pão de hambúrguer", "1 pão francês", "1 Rap10", "2 pães de forma"] },
+        { nome: "Carne bovina magra moída ou grelhada (105 g cozida = 140 g crua)", fixo: true },
+        { nome: "Salada", livre: true }
+      ], obs: "Ketchup, mostarda e maionese light: com moderação." }
+    ] }
+  ],
+  chas: "Melissa, camomila, capim-limão, erva-cidreira, cavalinha, hibisco…",
+  observacoes: [
+    "Evitar beber líquidos durante as refeições, principalmente refrigerante e suco de caixinha.",
+    "Acompanhar o intestino: quantas evacuações por semana e a consistência.",
+    "Anotar melhoras, facilidades e dificuldades com o plano para a próxima consulta.",
+    "Se tiver aversão a algum alimento, não precisa comer.",
+    "Quer incluir algum alimento ou saber a quantidade? Anote para a próxima consulta."
+  ],
+  receitas: [
+    { nome: "Batata chips", texto: "Fatiar a batata em rodelas finas, secar bem com papel-toalha, temperar a gosto (sal, páprica, pimenta-do-reino, orégano…) e levar para a airfryer." },
+    { nome: "Crepioca", texto: "Bater o ovo com a goma de tapioca e temperos a gosto (sal, páprica, pimenta-do-reino, orégano…)." },
+    { nome: "Macarrão crocante", texto: "Cozinhar o macarrão até ficar al dente, temperar a gosto e levar para a airfryer." },
+    { nome: "Molho para salada 1", texto: "1 colher de sopa de ketchup + 1 colher de sopa de mostarda + pimenta-do-reino + páprica defumada." },
+    { nome: "Molho para salada 2", texto: "1 colher de sopa de mostarda + ½ colher de sopa de mel." },
+    { nome: "Molho para salada 3", texto: "1 colher de sopa de shoyu light + 1 limão espremido." },
+    { nome: "Molho para salada 4", texto: "1 colher de sopa de creme de ricota light (ou creme de queijo minas frescal light) + 1 limão espremido + lemon pepper + 1 colher de sobremesa de mostarda. Para render mais, um pouco de água." },
+    { nome: "Torrada com ovo doce", texto: "Bater o ovo com um garfo e temperar com canela. Levar para a frigideira. Misturar água ao whey até virar uma caldinha e jogar por cima." },
+    { nome: "Mini pizza Rap10", texto: "Molho de tomate, atum ou frango + muçarela, e levar para a frigideira." }
+  ],
+  medidas: ["Braço", "Cintura", "Quadril", "Coxa medial"]
+};
