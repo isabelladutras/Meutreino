@@ -256,6 +256,7 @@
   .ref .acts2{padding:0 16px}
   .ref .note{margin:10px 16px 0}
   details.how .mgrid{margin-top:10px}
+  .usar{display:block;margin-top:4px;padding:7px 9px;border-radius:8px;background:rgba(61,220,151,.08);color:#bfe9d3;font-size:13px}
   /* SOS */
   .sos{border-top:1px solid var(--line);padding:12px 0}
   .sec > h3 + .note + .sos, .sec > h3 + .sos{border-top:0}
@@ -883,7 +884,7 @@
       <div class="note">${esc(DT.proximaConsulta)}</div></details>
     <details class="how"><summary>🍵 Chás liberados</summary><ul><li>${esc(DT.chas)}</li></ul></details>
     <details class="how"><summary>📝 Observações da nutricionista</summary><ul>${DT.observacoes.map(o => `<li>${esc(o)}</li>`).join("")}</ul></details>
-    <details class="how"><summary>🍳 Receitas</summary><ul>${DT.receitas.map(x => `<li><b style="color:var(--txt)">${esc(x.nome)}:</b> ${esc(x.texto)}</li>`).join("")}</ul></details>`;
+    <details class="how"><summary>🍳 Receitas</summary><ul>${DT.receitas.map(x => `<li><b style="color:var(--txt)">${esc(x.nome)}:</b> ${esc(x.texto)}${x.usar ? `<span class="usar">↳ Onde usar: ${esc(x.usar)}</span>` : ""}</li>`).join("")}</ul></details>`;
     $("#main").innerHTML = h;
   }
   const dietaMais = new Set();

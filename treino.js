@@ -399,15 +399,15 @@ const DIETA = {
     "Quer incluir algum alimento ou saber a quantidade? Anote para a próxima consulta."
   ],
   receitas: [
-    { nome: "Batata chips", texto: "Fatiar a batata em rodelas finas, secar bem com papel-toalha, temperar a gosto (sal, páprica, pimenta-do-reino, orégano…) e levar para a airfryer." },
-    { nome: "Crepioca", texto: "Bater o ovo com a goma de tapioca e temperos a gosto (sal, páprica, pimenta-do-reino, orégano…)." },
-    { nome: "Macarrão crocante", texto: "Cozinhar o macarrão até ficar al dente, temperar a gosto e levar para a airfryer." },
-    { nome: "Molho para salada 1", texto: "1 colher de sopa de ketchup + 1 colher de sopa de mostarda + pimenta-do-reino + páprica defumada." },
-    { nome: "Molho para salada 2", texto: "1 colher de sopa de mostarda + ½ colher de sopa de mel." },
-    { nome: "Molho para salada 3", texto: "1 colher de sopa de shoyu light + 1 limão espremido." },
-    { nome: "Molho para salada 4", texto: "1 colher de sopa de creme de ricota light (ou creme de queijo minas frescal light) + 1 limão espremido + lemon pepper + 1 colher de sobremesa de mostarda. Para render mais, um pouco de água." },
-    { nome: "Torrada com ovo doce", texto: "Bater o ovo com um garfo e temperar com canela. Levar para a frigideira. Misturar água ao whey até virar uma caldinha e jogar por cima." },
-    { nome: "Mini pizza Rap10", texto: "Molho de tomate, atum ou frango + muçarela, e levar para a frigideira." }
+    { nome: "Batata chips", texto: "Fatiar a batata em rodelas finas, secar bem com papel-toalha, temperar a gosto (sal, páprica, pimenta-do-reino, orégano…) e levar para a airfryer.", usar: "Almoço ou jantar, no lugar do carboidrato. Porção parecida: batata inglesa assada, 6 colheres de sopa cheias (140 g). Confirmar com a nutri." },
+    { nome: "Crepioca", texto: "Bater o ovo com a goma de tapioca e temperos a gosto (sal, páprica, pimenta-do-reino, orégano…).", usar: "Jantar: já é uma das opções. 1 ovo (50 g) + 2 colheres de sopa rasas de goma (30 g) + atum (40 g) ou frango (45 g) + salada à vontade." },
+    { nome: "Macarrão crocante", texto: "Cozinhar o macarrão até ficar al dente, temperar a gosto e levar para a airfryer.", usar: "Almoço ou jantar, no lugar do carboidrato: macarrão cozido, 4 colheres de sopa cheias (100 g)." },
+    { nome: "Molho para salada 1", texto: "1 colher de sopa de ketchup + 1 colher de sopa de mostarda + pimenta-do-reino + páprica defumada.", usar: "Nas folhas e legumes do almoço ou do jantar. Use 1 porção da receita por refeição." },
+    { nome: "Molho para salada 2", texto: "1 colher de sopa de mostarda + ½ colher de sopa de mel.", usar: "Nas folhas e legumes do almoço ou do jantar. Use 1 porção da receita por refeição." },
+    { nome: "Molho para salada 3", texto: "1 colher de sopa de shoyu light + 1 limão espremido.", usar: "Nas folhas e legumes do almoço ou do jantar. Use 1 porção da receita por refeição." },
+    { nome: "Molho para salada 4", texto: "1 colher de sopa de creme de ricota light (ou creme de queijo minas frescal light) + 1 limão espremido + lemon pepper + 1 colher de sobremesa de mostarda. Para render mais, um pouco de água.", usar: "Nas folhas e legumes do almoço ou do jantar. Use 1 porção da receita por refeição." },
+    { nome: "Torrada com ovo doce", texto: "Bater o ovo com um garfo e temperar com canela. Levar para a frigideira. Misturar água ao whey até virar uma caldinha e jogar por cima.", usar: "Café da manhã ou lanche, opção Pão + proteína: 3 torradas + 1 ovo e 2 claras. A calda de whey é um extra: confirmar com a nutri." },
+    { nome: "Mini pizza Rap10", texto: "Molho de tomate, atum ou frango + muçarela, e levar para a frigideira.", usar: "Café da manhã ou lanche, opção Pão + proteína: 1 Rap10 + uma proteína só (atum 60 g, frango 60 g ou muçarela 35 g). Atum ou frango junto com muçarela: confirmar com a nutri." }
   ],
   medidas: ["Braço", "Cintura", "Quadril", "Coxa medial"]
 };
