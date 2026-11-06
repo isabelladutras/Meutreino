@@ -835,10 +835,10 @@
     const comidas = S.refeicoes.filter(r => ref[r.id] === true).length, agua = e.agua || 0;
     let h = `<section class="dayhead slim">${dnavHTML(iso)}</section>`;
     h += `<section class="tiles">
-      <div class="tile"><span class="l">Refeições</span><span class="v">${comidas}<small>/4</small></span><span class="pb"><i style="width:${comidas/4*100}%"></i></span></div>
-      <button class="tile ${e.creatina?"done":""}" data-sup="creatina"><span class="l">Creatina 5 g</span><span class="v">${e.creatina ? "✓ tomei" : "<small>toque ao tomar</small>"}</span><span class="pb"><i style="width:${e.creatina?100:0}%"></i></span></button>
-      <div class="tile wide"><span class="l">Água · meta ${fmtN(DT.aguaMeta)} L</span><span class="v">${fmtN(agua)}<small> L</small></span><span class="pb blue"><i style="width:${Math.min(100, agua/DT.aguaMeta*100)}%"></i></span>
+      <div class="tile wide"><span class="l">Água · meta ${fmtN(DT.aguaMeta)} L · ${comidas}/4 refeições</span><span class="v">${fmtN(agua)}<small> L</small></span><span class="pb blue"><i style="width:${Math.min(100, agua/DT.aguaMeta*100)}%"></i></span>
         <span class="aq">${[0.25,0.5,1].map(q => `<button class="mini acc" data-agua="${q}">+ ${q === 0.25 ? "250 ml" : q === 0.5 ? "500 ml" : "1 L"}</button>`).join("")}<button class="mini" data-agua="-0.25" aria-label="tirar 250 ml">−</button></span></div>
+      <div class="tile"><span class="l">Café / cafeína</span><span class="v">${e.cafeina || 0}<small> xíc.</small></span><span class="aq" style="margin-top:4px"><button class="mini" data-cafe="-1" aria-label="menos uma xícara">−</button><button class="mini acc" data-cafe="1">+ 1</button></span></div>
+      <button class="tile ${e.creatina?"done":""}" data-sup="creatina"><span class="l">Creatina 5 g</span><span class="v">${e.creatina ? "✓" : "–"}<small> ${e.creatina ? "tomei" : "toque ao tomar"}</small></span><span class="pb"><i style="width:${e.creatina?100:0}%"></i></span></button>
     </section>`;
     const prox = dOff === 0 ? proximaRef() : null;
     if (!dAbertas[iso]) dAbertas[iso] = new Set(dOff === 0 ? [prox] : []);
@@ -897,6 +897,7 @@
     const nav = e.target.closest("[data-dnav]"); if (nav){ dOff = Math.min(0, dOff + (+nav.dataset.dnav)); renderDieta(); return }
     const tg = e.target.closest("[data-rtog]"); if (tg){ const set = dAbertas[iso] || (dAbertas[iso] = new Set()); if (set.has(tg.dataset.rtog)) set.delete(tg.dataset.rtog); else set.add(tg.dataset.rtog); renderDieta(); return }
     const ag = e.target.closest("[data-agua]"); if (ag){ salvarDia(iso, "agua", Math.max(0, Math.round(((entrada(iso).agua||0) + (+ag.dataset.agua))*100)/100)); renderDieta(); return }
+    const cf = e.target.closest("[data-cafe]"); if (cf){ salvarDia(iso, "cafeina", Math.max(0, (entrada(iso).cafeina||0) + (+cf.dataset.cafe))); renderDieta(); return }
     const sp = e.target.closest("[data-sup]"); if (sp){ salvarDia(iso, sp.dataset.sup, !entrada(iso)[sp.dataset.sup]); renderDieta(); return }
     const op = e.target.closest("[data-dop]");
     if (op){ const d = dietaDe(iso, op.dataset.dop), k = +op.dataset.k; salvarDieta(iso, op.dataset.dop, { op: k, sel: (d.op||0) === k ? (d.sel||{}) : {}, escolhida: true }); renderDieta(); return }
