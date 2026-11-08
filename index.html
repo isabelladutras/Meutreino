@@ -1035,7 +1035,7 @@
     const s = stats(rN), all = getDiario();
     let h = `<section class="dayhead"><div class="k">Para as consultas</div><h2>Resumo</h2>
       <div class="seg" style="margin-top:6px">${[7,14,30].map(n => `<button data-rn="${n}" class="${rN===n?"on":""}">${n} dias</button>`).join("")}</div></section>`;
-    if (!s.reg && !s.porSOS.some(x => x.n)){ $("#main").innerHTML = h + `<section class="sec"><div class="mus">Preencha alguns dias no "Hoje" e o resumo aparece aqui.</div></section>`; return }
+    if (!s.reg && !s.porSOS.some(x => x.n)){ $("#main").innerHTML = h + `<section class="sec"><div class="mus">Preencha alguns dias no "Hoje" e o resumo aparece aqui.</div></section>` + backupHTML(); return }
     h += `<section class="sec"><h3>Neuro · dor e crises</h3><div class="kp">
         <div><b>${s.diasDor}</b><span>dias com dor de ${s.reg} registrados</span></div>
         <div><b>${s.dor}</b><span>dor média (0–10)</span></div>
@@ -1067,8 +1067,53 @@
     h += `<section class="sec"><h3>Dia a dia</h3><div class="tw"><table><thead><tr><th>Dia</th><th>Dor</th><th>Crise</th><th>SOS</th><th>Remédios</th><th>Refeições</th><th>Mov.</th></tr></thead><tbody>${linhas}</tbody></table></div>
       <div class="mus" style="margin-top:6px">Mov.: C = cardio, M = musculação.</div>
       <button class="btn" id="copiar">Copiar resumo para enviar às médicas</button><div class="mus" id="copiado" style="text-align:center"></div></section>`;
-    $("#main").innerHTML = h;
+    $("#main").innerHTML = h + backupHTML();
   }
+  // ================= CÓPIA DE SEGURANÇA =================
+  function exportarDados(){
+    const d = {}; try{ for (let i = 0; i < localStorage.length; i++){ const k = localStorage.key(i); d[k] = localStorage.getItem(k) } }catch(e){}
+    const json = JSON.stringify({ app: "meu-bem-estar", v: 1, em: new Date().toISOString(), dados: d });
+    return "MBE1:" + btoa(unescape(encodeURIComponent(json)));
+  }
+  function importarDados(txt){
+    const m = String(txt || "").match(/MBE1:([A-Za-z0-9+/=]+)/);
+    if (!m) throw new Error("Não encontrei o código. Ele começa com MBE1:");
+    let obj = null, b64 = m[1];
+    for (let cut = 0; cut < 4 && !obj; cut++){ try{ obj = JSON.parse(decodeURIComponent(escape(atob(b64.slice(0, b64.length - cut))))) }catch(e){} }
+    if (!obj) throw new Error("O código está incompleto. Copie de novo no celular antigo.");
+    if (obj.app !== "meu-bem-estar" || !obj.dados) throw new Error("Esse código não é deste app.");
+    localStorage.clear(); Object.entries(obj.dados).forEach(([k,v]) => localStorage.setItem(k, v));
+    return obj;
+  }
+  function backupHTML(){
+    const nDias = Object.keys(getDiario()).length;
+    return `<section class="sec" id="backup"><h3>Cópia de segurança <b>${nDias} dia${nDias===1?"":"s"} registrado${nDias===1?"":"s"}</b></h3>
+      <div class="mus">Para trocar de celular ou não perder nada se o navegador limpar os dados.</div>
+      <div class="rxs"><span><b>1. No celular antigo</b> · copie o código e mande para você no WhatsApp</span></div>
+      <button class="btn" id="bkCopiar">Copiar meus dados</button><div class="mus" id="bkMsg" style="text-align:center"></div>
+      <div class="rxs"><span><b>2. No celular novo</b> · cole o código aqui e toque em Restaurar</span></div>
+      <textarea id="bkCola" rows="3" placeholder="Cole aqui o código que começa com MBE1:" style="width:100%;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--txt);padding:10px;font:inherit;font-size:13px"></textarea>
+      <button class="btn ghost" id="bkRestaurar">Restaurar neste celular</button>
+      <div class="mus" id="bkRes" style="text-align:center"></div></section>`;
+  }
+  $("#main").addEventListener("click", e => {
+    if (secao !== "resumo") return;
+    if (e.target.id === "bkCopiar"){
+      const code = exportarDados();
+      const manual = () => { $("#bkMsg").innerHTML = '<textarea id="bkTxt" rows="4" style="width:100%;margin-top:8px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--txt);padding:10px;font-size:12px"></textarea><div>Selecione tudo e copie.</div>'; const t = $("#bkTxt"); t.value = code; t.focus(); t.select() };
+      try{ navigator.clipboard.writeText(code).then(() => { $("#bkMsg").textContent = "✓ Copiado! Cole numa conversa sua no WhatsApp." }, manual) }catch(err){ manual() }
+      return;
+    }
+    if (e.target.id === "bkRestaurar"){
+      const txt = $("#bkCola").value;
+      if (!txt.trim()){ $("#bkRes").textContent = "Cole o código primeiro."; return }
+      duploToque(e.target, "Substitui os dados deste celular · tocar de novo", () => {
+        try{ const o = importarDados(txt); toast("✓ Dados restaurados"); render();
+          setTimeout(() => { const r = document.getElementById("bkRes"); if (r) r.textContent = "✓ Restaurado: cópia de " + new Date(o.em).toLocaleString("pt-BR") }, 50);
+        }catch(err){ $("#bkRes").textContent = "⚠️ " + err.message }
+      });
+    }
+  });
   function resumoTexto(){
     const s = stats(rN);
     let t = `Resumo — últimos ${s.n} dias (${s.reg} dias registrados)\n\n`;
