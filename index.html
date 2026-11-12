@@ -252,6 +252,8 @@
   .chips2{display:flex;flex-wrap:wrap;gap:6px}
   .chip2{border:1px solid var(--line);background:var(--bg);color:var(--txt);border-radius:999px;padding:8px 12px;font-size:14px}
   .chip2.on{background:var(--ok);border-color:var(--ok);color:#0d2a1d;font-weight:700}
+  .chip2 small{display:inline-block;margin-left:6px;font-size:12px;color:var(--mut);font-weight:600}
+  .chip2.on small{color:#1d4a35}
   .qtd{margin-top:7px;font-size:13px;color:var(--mut)} .qtd b{color:var(--txt)}
   .ref .acts2{padding:0 16px}
   .ref .note{margin:10px 16px 0}
@@ -824,6 +826,8 @@
   function proximaRef(){ const now = agoraMin(); const r = DT.refeicoes.find(r => toMin(r.hora) + 90 > now); return r ? r.id : DT.refeicoes[DT.refeicoes.length-1].id }
   const parteNome = t => t.split(" (")[0].split(" — ")[0];
   const parteQtd = t => { const m = t.match(/\(([^)]+)\)/), extra = t.includes(" — ") ? t.split(" — ")[1].split(" (")[0] + " · " : ""; return extra + (m ? m[1] : "") };
+  // "4 colheres de sopa cheias = 100 g" -> "100 g"; "1 unidade" fica igual
+  const qtdCurta = t => { const m = t.match(/\(([^)]+)\)/); if (!m) return ""; const q = m[1]; return q.includes("=") ? q.split("=").pop().trim() : q };
   function resumoOpcao(o){ return o.grupos.filter(g => !g.livre).map(g => g.escolhas ? g.nome.toLowerCase() : parteNome(g.nome).replace(/^(\d+\s)/, "").toLowerCase()).join(" · ") }
   function escolhidoTxt(r, d){
     const op = r.opcoes[Math.min(d.op || 0, r.opcoes.length - 1)];
@@ -861,7 +865,7 @@
           op.grupos.forEach((g,gi) => {
             if (g.fixo || g.livre) return;
             const v = (d.sel||{})[gi];
-            h += `<div class="grp2"><span class="gl">${esc(g.nome)} <small>escolha 1</small></span><div class="chips2">${g.escolhas.map((c,ci) => `<button class="chip2 ${v===ci?"on":""}" data-dsel="${r.id}" data-g="${gi}" data-v="${ci}">${esc(parteNome(c))}</button>`).join("")}</div>
+            h += `<div class="grp2"><span class="gl">${esc(g.nome)} <small>escolha 1</small></span><div class="chips2">${g.escolhas.map((c,ci) => `<button class="chip2 ${v===ci?"on":""}" data-dsel="${r.id}" data-g="${gi}" data-v="${ci}">${esc(parteNome(c))}${qtdCurta(c) ? `<small>${esc(qtdCurta(c))}</small>` : ""}</button>`).join("")}</div>
               ${v != null && g.escolhas[v] ? `<div class="qtd">${esc(parteNome(g.escolhas[v]))}: <b>${esc(parteQtd(g.escolhas[v]) || "1 porção")}</b></div>` : ""}</div>`;
           });
           if (op.obs) h += `<div class="note">${esc(op.obs)}</div>`;
@@ -1076,9 +1080,9 @@
     return "MBE1:" + btoa(unescape(encodeURIComponent(json)));
   }
   function importarDados(txt){
-    const m = String(txt || "").match(/MBE1:([A-Za-z0-9+/=]+)/);
+    const m = String(txt || "").match(/mbe1\s*:\s*([A-Za-z0-9+/=\s]+)/i);
     if (!m) throw new Error("Não encontrei o código. Ele começa com MBE1:");
-    let obj = null, b64 = m[1];
+    let obj = null, b64 = m[1].replace(/\s+/g, "");
     for (let cut = 0; cut < 4 && !obj; cut++){ try{ obj = JSON.parse(decodeURIComponent(escape(atob(b64.slice(0, b64.length - cut))))) }catch(e){} }
     if (!obj) throw new Error("O código está incompleto. Copie de novo no celular antigo.");
     if (obj.app !== "meu-bem-estar" || !obj.dados) throw new Error("Esse código não é deste app.");
@@ -1092,7 +1096,7 @@
       <div class="rxs"><span><b>1. No celular antigo</b> · copie o código e mande para você no WhatsApp</span></div>
       <button class="btn" id="bkCopiar">Copiar meus dados</button><div class="mus" id="bkMsg" style="text-align:center"></div>
       <div class="rxs"><span><b>2. No celular novo</b> · cole o código aqui e toque em Restaurar</span></div>
-      <textarea id="bkCola" rows="3" placeholder="Cole aqui o código que começa com MBE1:" style="width:100%;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--txt);padding:10px;font:inherit;font-size:13px"></textarea>
+      <textarea id="bkCola" rows="3" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="Cole aqui o código que começa com MBE1:" style="width:100%;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--txt);padding:10px;font:inherit;font-size:13px"></textarea>
       <button class="btn ghost" id="bkRestaurar">Restaurar neste celular</button>
       <div class="mus" id="bkRes" style="text-align:center"></div></section>`;
   }
